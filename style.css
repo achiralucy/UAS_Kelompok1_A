@@ -6,7 +6,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 800px;
+  min-height: 100vh;
 }
 
 .card {
@@ -31,7 +31,8 @@ label {
 }
 
 input[type="email"],
-input[type="password"] {
+input[type="password"], 
+input[type="text"] {
   width: 100%;
   padding: 10px 12px;
   border: 1px solid #cccccc;
