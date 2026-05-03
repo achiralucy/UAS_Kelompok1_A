@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>PadelPlay - User Dashboard</title>
+    <link rel="stylesheet" href="user.css">
+</head>
+<script src="script.js"></script>
+<body>
+
+    <div id="sidebar">
+        <div id="sidebar-logo">
+            <h1>PadelPlay</h1>
+            <p>User Dashboard</p>
+        </div>
+        <div id="sidebar-menu">
+            <div class="menu-label">Menu Utama</div>
+            <a href="user.html" class="menu-item active">Pilih Lapangan</a>
+           <a href="riwayat_booking.php" class="menu-item">Riwayat Booking</a>
+           <a href="profile.php" class="menu-item">Profil Saya</a>
+        </div>
+        <div id="sidebar-footer">
+            <a href="logout.php" id="btn-logout">Logout</a>
+        </div>
+    </div>
+
+    <div id="main">
+        <div id="navbar">
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <button id="menu">☰</button>
+                <div style="font-weight: bold; color: #333;">Pesan Lapangan</div>
+            </div>
+            <div style="background-color: #ffe4f5; color: #cc2e97; padding: 6px 14px; border-radius: 20px; font-weight: bold; font-size: 13px;">Member</div>
+        </div>
+
+        <div id="content">
+            <h2 style="font-size: 20px; color: #333; margin-bottom: 20px;">Silahkan Pilih Lapangan</h2>
+            <div id="daftar-lapangan"></div>
+        </div>
+    </div>
+
+    <div id="modal-booking" class="modal">
+        <div class="modal-box">
+            <h3 style="margin-top: 0; color: #333;">Konfirmasi Booking</h3>
+            
+            <form action="booking_form.php" method="POST">
+                <div class="form-group">
+                    <label>Nama Lapangan</label>
+                    <input type="text" name="lapangan" id="input-lapangan" readonly style="background: #f0f0f0;">
+                </div>
+                <div class="form-group">
+                    <label>Pilih Tanggal</label>
+                    <input type="date" name="tanggal" id="input-tanggal" required>
+                </div>
+                <div class="form-group">
+                    <label>Pilih Waktu</label>
+                    <input type="time" name="waktu" required>
+                </div>
+                <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px;">
+                    <button type="button" onclick="tutupBooking()" style="border:none; background:none; cursor:pointer; color:#777;">Batal</button>
+                    <button type="submit" class="btn-pink" style="width:auto; margin-top:0;">Booking Sekarang</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
