@@ -42,10 +42,10 @@ $users = $conn->query("SELECT u.*, COUNT(b.id) as total_booking FROM users u LEF
         <span class="sidebar-badge">Admin Panel</span>
         <ul class="sidebar-menu">
             <li class="sidebar-menu-label">Menu</li>
-            <li><a href="index_admin.php"><span class="sidebar-menu-icon">📊</span><span>Dashboard</span></a></li>
-            <li><a href="lapangan_admin.php"><span class="sidebar-menu-icon">🏓</span><span>Lapangan</span></a></li>
-            <li><a href="booking_admin.php"><span class="sidebar-menu-icon">📅</span><span>Booking</span></a></li>
-            <li><a href="kelola_admin.php" class="active"><span class="sidebar-menu-icon">👤</span><span>Pengguna</span></a></li>
+            <li><a href="index_admin.php">Dashboard</a></li>
+            <li><a href="lapangan_admin.php">Lapangan</a></li>
+            <li><a href="booking_admin.php">Booking</a></li>
+            <li><a href="kelola_admin.php" class="active">Pengguna</a></li>
         </ul>
         <div class="sidebar-footer">
             <a href="logout.php"><span class="sidebar-menu-icon">⎋</span><span>Keluar</span></a>
@@ -91,7 +91,7 @@ $users = $conn->query("SELECT u.*, COUNT(b.id) as total_booking FROM users u LEF
                                 <th>Nama</th>
                                 <th>Email</th>
                                 <th>Total Booking</th>
-                                <th>Bergabung</th>
+                                <th>ID</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -115,12 +115,12 @@ $users = $conn->query("SELECT u.*, COUNT(b.id) as total_booking FROM users u LEF
                                     </td>
                                     <td style="color:#666;"><?= $u['id'] ?></td>
                                     <td>
-                                        <button class="btn btn-danger btn-sm" onclick="konfirmasiHapus('kelola_admin.php?hapus=<?= $u['id'] ?>', '<?= htmlspecialchars($u['name']) ?>')">🗑️ Hapus</button>
+                                        <button class="btn btn-danger btn-sm" onclick="konfirmasiHapus('kelola_admin.php?hapus=<?= $u['id'] ?>', '<?= htmlspecialchars($u['name']) ?>')">Hapus</button>
                                     </td>   
                                 </tr>
                                 <?php endwhile; ?>
                             <?php else: ?>
-                                <tr><td colspan="6"><div class="empty-state"><div class="empty-state-icon">👤</div><p>Belum ada pengguna terdaftar.</p></div></td></tr>
+                                <tr><td colspan="6"><div class="empty-state"><p>Belum ada pengguna terdaftar.</p></div></td></tr>
                             <?php endif; ?>
                         </tbody>
                     </table>

@@ -51,7 +51,7 @@ $namaUser = $sudahLogin ? $_SESSION['user_nama'] : '';
         </p>
         <div class="hero-actions">
             <?php if ($sudahLogin): ?>
-                <a href="booking_user.php" class="btn-pink">Booking Sekarang →</a>
+                <a href="booking_user.php" class="btn-pink">Booking Sekarang</a>
                 <a href="lapangan_user.php" class="btn-outline">Lihat Lapangan</a>
             <?php else: ?>
                 <a href="register_user.php" class="btn-pink">Mulai Sekarang</a>
@@ -132,7 +132,7 @@ $namaUser = $sudahLogin ? $_SESSION['user_nama'] : '';
         <?php endif; ?>
 
         <div style="text-align:center; margin-top:30px;">
-            <a href="lapangan_user.php" class="btn-outline">Lihat Semua Lapangan →</a>
+            <a href="lapangan_user.php" class="btn-outline">Lihat Semua Lapangan</a>
         </div>
     </div>
 </section>

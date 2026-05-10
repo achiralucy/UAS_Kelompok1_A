@@ -56,10 +56,10 @@ $bookings = $conn->query("
         <span class="sidebar-badge">Admin Panel</span>
         <ul class="sidebar-menu">
             <li class="sidebar-menu-label">Menu</li>
-            <li><a href="index_admin.php"><span class="sidebar-menu-icon">📊</span><span>Dashboard</span></a></li>
-            <li><a href="lapangan_admin.php"><span class="sidebar-menu-icon">🏓</span><span>Lapangan</span></a></li>
-            <li><a href="booking_admin.php" class="active"><span class="sidebar-menu-icon">📅</span><span>Booking</span></a></li>
-            <li><a href="kelola_admin.php"><span class="sidebar-menu-icon">👤</span><span>Pengguna</span></a></li>
+            <li><a href="index_admin.php">Dashboard</a></li>
+            <li><a href="lapangan_admin.php">Lapangan</a></li>
+            <li><a href="booking_admin.php" class="active">Booking</a></li>
+            <li><a href="kelola_admin.php">Pengguna</a></li>
         </ul>
         <div class="sidebar-footer">
             <a href="logout.php"><span class="sidebar-menu-icon">⎋</span><span>Keluar</span></a>
@@ -163,10 +163,10 @@ $bookings = $conn->query("
                                     </td>
                                     <td>
                                         <?php if ($b['status'] === 'pending'): ?>
-                                            <button class="btn btn-success btn-sm" onclick="updateStatus(<?= $b['id'] ?>, 'confirmed')">✅ Konfirmasi</button>
-                                            <button class="btn btn-danger btn-sm" onclick="updateStatus(<?= $b['id'] ?>, 'cancelled')">❌ Batalkan</button>
+                                            <button class="btn btn-success btn-sm" onclick="updateStatus(<?= $b['id'] ?>, 'confirmed')">Konfirmasi</button>
+                                            <button class="btn btn-danger btn-sm" onclick="updateStatus(<?= $b['id'] ?>, 'cancelled')">Batalkan</button>
                                         <?php elseif ($b['status'] === 'confirmed'): ?>
-                                            <button class="btn btn-danger btn-sm" onclick="updateStatus(<?= $b['id'] ?>, 'cancelled')">❌ Batalkan</button>
+                                            <button class="btn btn-danger btn-sm" onclick="updateStatus(<?= $b['id'] ?>, 'cancelled')">Batalkan</button>
                                         <?php else: ?>
                                             <span style="color:#444;">-</span>
                                         <?php endif; ?>

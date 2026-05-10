@@ -192,7 +192,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
 
             <div class="ringkasan-card">
-                <div class="ringkasan-title">📅 Ringkasan</div>
+                <div class="ringkasan-title">Ringkasan</div>
 
                 <div class="ringkasan-row">
                     <span class="label">Lapangan</span>

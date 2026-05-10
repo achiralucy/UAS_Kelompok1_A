@@ -80,10 +80,10 @@ $lapanganList = $conn->query("SELECT * FROM lapangan ORDER BY nama ASC");
         <span class="sidebar-badge">Admin Panel</span>
         <ul class="sidebar-menu">
             <li class="sidebar-menu-label">Menu</li>
-            <li><a href="index_admin.php"><span class="sidebar-menu-icon">📊</span><span>Dashboard</span></a></li>
-            <li><a href="lapangan_admin.php" class="active"><span class="sidebar-menu-icon">🏓</span><span>Lapangan</span></a></li>
-            <li><a href="booking_admin.php"><span class="sidebar-menu-icon">📅</span><span>Booking</span></a></li>
-            <li><a href="kelola_admin.php"><span class="sidebar-menu-icon">👤</span><span>Pengguna</span></a></li>
+            <li><a href="index_admin.php">Dashboard</a></li>
+            <li><a href="lapangan_admin.php" class="active">Lapangan</a></li>
+            <li><a href="booking_admin.php">Booking</a></li>
+            <li><a href="kelola_admin.php">Pengguna</a></li>
         </ul>
         <div class="sidebar-footer">
             <a href="logout.php"><span class="sidebar-menu-icon">⎋</span><span>Keluar</span></a>
@@ -151,8 +151,8 @@ $lapanganList = $conn->query("SELECT * FROM lapangan ORDER BY nama ASC");
                                         <span class="badge badge-<?= $l['status'] ?>"><?= ucfirst($l['status'] ?? '') ?></span>
                                     </td>
                                     <td>
-                                        <button class="btn btn-outline btn-sm" onclick='editLapangan(<?= json_encode($l) ?>)'>✏️ Edit</button>
-                                        <button class="btn btn-danger btn-sm" onclick="konfirmasiHapus('lapangan_admin.php?hapus=<?= $l['id'] ?>', '<?= htmlspecialchars($l['nama']) ?>')">🗑️ Hapus</button>
+                                        <button class="btn btn-outline btn-sm" onclick='editLapangan(<?= json_encode($l) ?>)'>Edit</button>
+                                        <button class="btn btn-danger btn-sm" onclick="konfirmasiHapus('lapangan_admin.php?hapus=<?= $l['id'] ?>', '<?= htmlspecialchars($l['nama']) ?>')">Hapus</button>
                                     </td>
                                 </tr>
                                 <?php endwhile; ?>

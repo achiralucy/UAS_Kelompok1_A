@@ -38,10 +38,10 @@ $recentBookings = $conn->query("
 
         <ul class="sidebar-menu">
             <li class="sidebar-menu-label">Menu</li>
-            <li><a href="index_admin.php" class="active"><span class="sidebar-menu-icon">📊</span><span>Dashboard</span></a></li>
-            <li><a href="lapangan_admin.php"><span class="sidebar-menu-icon">🏓</span><span>Lapangan</span></a></li>
-            <li><a href="booking_admin.php"><span class="sidebar-menu-icon">📅</span><span>Booking</span></a></li>
-            <li><a href="kelola_admin.php"><span class="sidebar-menu-icon">👤</span><span>Pengguna</span></a></li>
+            <li><a href="index_admin.php" class="active">Dashboard</a></li>
+            <li><a href="lapangan_admin.php">Lapangan</a></li>
+            <li><a href="booking_admin.php">Booking</a></li>
+            <li><a href="kelola_admin.php">Pengguna</a></li>
         </ul>
 
         <div class="sidebar-footer">
