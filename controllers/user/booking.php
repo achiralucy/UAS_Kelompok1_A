@@ -1,8 +1,4 @@
 <?php
-/**
- * controllers/user/booking.php
- * Booking lapangan + kode booking unik + popup resi otomatis
- */
 session_start();
 require_once '../../models/koneksi.php';
 cekLoginUser();

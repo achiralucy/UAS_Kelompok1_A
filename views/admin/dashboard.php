@@ -1,8 +1,4 @@
 <?php
-/**
- * views/admin/dashboard.php
- * Dashboard admin dengan modal logout
- */
 session_start();
 require_once '../../models/koneksi.php';
 cekLoginAdmin();

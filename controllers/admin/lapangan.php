@@ -1,8 +1,4 @@
 <?php
-/**
- * controllers/admin/lapangan.php
- * Kelola lapangan + upload/edit gambar
- */
 session_start();
 require_once '../../models/koneksi.php';
 cekLoginAdmin();
