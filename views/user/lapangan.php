@@ -1,8 +1,4 @@
 <?php
-/**
- * views/user/lapangan.php
- * Daftar lapangan dengan foto dari assets/images
- */
 session_start();
 require_once '../../models/koneksi.php';
 

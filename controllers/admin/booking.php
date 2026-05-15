@@ -1,8 +1,4 @@
 <?php
-/**
- * controllers/admin/booking.php
- * Kelola booking + modal konfirmasi batalkan
- */
 session_start();
 require_once '../../models/koneksi.php';
 cekLoginAdmin();

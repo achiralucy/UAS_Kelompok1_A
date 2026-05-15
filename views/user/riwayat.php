@@ -1,8 +1,4 @@
 <?php
-/**
- * views/user/riwayat.php
- * Riwayat booking user + modal konfirmasi pembatalan
- */
 session_start();
 require_once '../../models/koneksi.php';
 cekLoginUser();

@@ -1,8 +1,4 @@
 <?php
-/**
- * views/user/index.php
- * Halaman utama user + tombol logout dengan modal konfirmasi
- */
 session_start();
 require_once __DIR__ . '/../../models/koneksi.php';
 
