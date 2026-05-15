@@ -17,7 +17,6 @@ $error = $_GET['error'] ?? '';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Masuk - PadelPlay</title>
     <link rel="stylesheet" href="../assets/css/user.css">
-    <link rel="stylesheet" href="../../assets/css/additions.css">
 </head>
 <body>
 <div class="auth-wrapper">
