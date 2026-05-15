@@ -29,6 +29,10 @@ $users = $conn->query("SELECT u.*, COUNT(b.id) as total_booking FROM users u LEF
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kelola Pengguna - Admin PadelPlay</title>
     <link rel="stylesheet" href="../../assets/css/admin.css">
+<<<<<<< HEAD
+=======
+    <link rel="stylesheet" href="../../assets/css/additions.css">
+>>>>>>> f0fa92e993af3dc7d04a90bd0dfe2e8a88afc2b9
 </head>
 <body>
 <div class="admin-wrapper">
