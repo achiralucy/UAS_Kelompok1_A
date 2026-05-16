@@ -6,7 +6,6 @@ body {
     line-height: 1.6;
     min-height: 100vh;
 }
-
 .navbar {
     background: #111111;
     border-bottom: 1px solid #2a2a2a;
@@ -19,7 +18,6 @@ body {
     top: 0;
     z-index: 1000;
 }
-
 .navbar-brand {
     display: flex;
     align-items: center;
@@ -40,25 +38,21 @@ body {
     color: white;
     font-family: 'Montserrat', sans-serif;
 }
-
 .navbar-brand-text {
     font-family: 'Montserrat', sans-serif;
     font-weight: 800;
     font-size: 20px;
     color: #ffffff;
 }
-
 .navbar-brand-text span {
     color: #e91e8c;
 }
-
 .navbar-nav {
     display: flex;
     align-items: center;
     gap: 8px;
     list-style: none;
 }
-
 .navbar-nav a {
     color: #aaaaaa;
     text-decoration: none;
@@ -68,19 +62,16 @@ body {
     border-radius: 8px;
     transition: all 0.2s;
 }
-
 .navbar-nav a:hover,
 .navbar-nav a.active {
     color: #e91e8c;
     background: rgba(233, 30, 140, 0.1);
 }
-
 .navbar-actions {
     display: flex;
     align-items: center;
     gap: 10px;
 }
-
 .btn-masuk {
     color: #ffffff;
     text-decoration: none;
@@ -93,12 +84,10 @@ body {
     background: transparent;
     cursor: pointer;
 }
-
 .btn-masuk:hover {
     border-color: #e91e8c;
     color: #e91e8c;
 }
-
 .btn-daftar {
     background: linear-gradient(135deg, #e91e8c, #c0166e);
     color: white;
@@ -111,12 +100,10 @@ body {
     cursor: pointer;
     transition: all 0.2s;
 }
-
 .btn-daftar:hover {
     background: linear-gradient(135deg, #ff2d9b, #e91e8c);
     transform: translateY(-1px);
 }
-
 .btn-keluar {
     color: #888;
     text-decoration: none;
@@ -128,12 +115,10 @@ body {
     align-items: center;
     gap: 6px;
 }
-
 .btn-keluar:hover {
     color: #e91e8c;
     background: rgba(233, 30, 140, 0.1);
 }
-
 .hero {
     position: relative;
     min-height: 85vh;
@@ -142,14 +127,12 @@ body {
     overflow: hidden;
     background: #0a0a0a;
 }
-
 .hero-bg {
     position: absolute;
     inset: 0;
     background: linear-gradient(135deg, rgba(233,30,140,0.15) 0%, rgba(0,0,0,0.7) 60%);
     z-index: 1;
 }
-
 .hero-image {
     position: absolute;
     inset: 0;
@@ -159,14 +142,12 @@ body {
     opacity: 0.3;
     filter: grayscale(30%);
 }
-
 .hero-content {
     position: relative;
     z-index: 2;
     padding: 0 80px;
     max-width: 750px;
 }
-
 .hero-badge {
     display: inline-flex;
     align-items: center;
@@ -182,7 +163,6 @@ body {
     letter-spacing: 0.5px;
     text-transform: uppercase;
 }
-
 .hero-title {
     font-family: 'Montserrat', sans-serif;
     font-size: 72px;
@@ -191,11 +171,9 @@ body {
     color: #ffffff;
     margin-bottom: 20px;
 }
-
 .hero-title span {
     color: #e91e8c;
 }
-
 .hero-subtitle {
     font-size: 17px;
     color: #bbbbbb;
@@ -203,13 +181,11 @@ body {
     max-width: 500px;
     line-height: 1.7;
 }
-
 .hero-actions {
     display: flex;
     gap: 14px;
     flex-wrap: wrap;
 }
-
 .btn-pink {
     background: linear-gradient(135deg, #e91e8c, #c0166e);
     color: white;
@@ -226,12 +202,10 @@ body {
     align-items: center;
     gap: 8px;
 }
-
 .btn-pink:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 25px rgba(233,30,140,0.4);
 }
-
 .btn-outline {
     background: transparent;
     color: #ffffff;
@@ -248,22 +222,18 @@ body {
     align-items: center;
     gap: 8px;
 }
-
 .btn-outline:hover {
     border-color: #e91e8c;
     color: #e91e8c;
 }
-
 .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 30px;
 }
-
 .page-header {
     padding: 50px 0 30px;
 }
-
 .page-title {
     font-family: 'Montserrat', sans-serif;
     font-size: 36px;
@@ -271,23 +241,19 @@ body {
     color: #ffffff;
     margin-bottom: 6px;
 }
-
 .page-title span {
     color: #e91e8c;
 }
-
 .page-subtitle {
     color: #888888;
     font-size: 15px;
 }
-
 .grid-lapangan {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 24px;
     padding-bottom: 60px;
 }
-
 .card-lapangan {
     background: #111111;
     border: 1px solid #222222;
@@ -295,13 +261,11 @@ body {
     overflow: hidden;
     transition: all 0.3s;
 }
-
 .card-lapangan:hover {
     border-color: #e91e8c;
     transform: translateY(-4px);
     box-shadow: 0 12px 40px rgba(233,30,140,0.15);
 }
-
 .card-lapangan-foto {
     width: 100%;
     height: 200px;
@@ -313,17 +277,14 @@ body {
     color: #333;
     overflow: hidden;
 }
-
 .card-lapangan-foto img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
-
 .card-lapangan-body {
     padding: 20px;
 }
-
 .card-lapangan-nama {
     font-family: 'Montserrat', sans-serif;
     font-weight: 700;
@@ -331,7 +292,6 @@ body {
     color: #ffffff;
     margin-bottom: 4px;
 }
-
 .card-lapangan-lokasi {
     font-size: 12px;
     color: #888;
@@ -340,34 +300,29 @@ body {
     align-items: center;
     gap: 4px;
 }
-
 .card-lapangan-deskripsi {
     font-size: 13px;
     color: #aaaaaa;
     margin-bottom: 16px;
     line-height: 1.5;
 }
-
 .card-lapangan-footer {
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
-
 .harga {
     font-family: 'Montserrat', sans-serif;
     font-weight: 700;
     color: #e91e8c;
     font-size: 16px;
 }
-
 .harga span {
     font-family: 'Inter', sans-serif;
     font-weight: 400;
     font-size: 12px;
     color: #888;
 }
-
 .btn-booking {
     background: linear-gradient(135deg, #e91e8c, #c0166e);
     color: white;
@@ -385,7 +340,6 @@ body {
     transform: translateY(-1px);
     box-shadow: 0 4px 15px rgba(233,30,140,0.35);
 }
-
 .booking-layout {
     display: grid;
     grid-template-columns: 1fr 340px;
@@ -393,18 +347,15 @@ body {
     padding-bottom: 60px;
     align-items: start;
 }
-
 .booking-form-card {
     background: #111111;
     border: 1px solid #222222;
     border-radius: 16px;
     padding: 30px;
 }
-
 .form-group {
     margin-bottom: 22px;
 }
-
 .form-label {
     display: block;
     font-weight: 600;
@@ -414,7 +365,6 @@ body {
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
-
 .form-control {
     width: 100%;
     background: #1a1a1a;
@@ -427,22 +377,18 @@ body {
     transition: all 0.2s;
     outline: none;
 }
-
 .form-control:focus {
     border-color: #e91e8c;
     box-shadow: 0 0 0 3px rgba(233,30,140,0.12);
 }
-
 select.form-control option {
     background: #1a1a1a;
     color: #ffffff;
 }
-
 textarea.form-control {
     resize: vertical;
     min-height: 100px;
 }
-
 .slot-label {
     font-weight: 600;
     font-size: 13px;
@@ -454,14 +400,12 @@ textarea.form-control {
     align-items: center;
     gap: 6px;
 }
-
 .slot-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 8px;
     margin-bottom: 22px;
 }
-
 .slot-btn {
     background: #1a1a1a;
     border: 1px solid #2a2a2a;
@@ -474,18 +418,15 @@ textarea.form-control {
     transition: all 0.2s;
     text-align: center;
 }
-
 .slot-btn:hover:not(.booked) {
     border-color: #e91e8c;
     color: #e91e8c;
 }
-
 .slot-btn.selected {
     background: rgba(233,30,140,0.15);
     border-color: #e91e8c;
     color: #e91e8c;
 }
-
 .slot-btn.booked {
     background: #1a1a1a;
     border-color: #2a2a2a;
@@ -493,7 +434,6 @@ textarea.form-control {
     cursor: not-allowed;
     text-decoration: line-through;
 }
-
 .ringkasan-card {
     background: #111111;
     border: 1px solid #222222;
@@ -502,7 +442,6 @@ textarea.form-control {
     position: sticky;
     top: 85px;
 }
-
 .ringkasan-title {
     font-family: 'Montserrat', sans-serif;
     font-weight: 700;
@@ -513,7 +452,6 @@ textarea.form-control {
     align-items: center;
     gap: 8px;
 }
-
 .ringkasan-row {
     display: flex;
     justify-content: space-between;
@@ -521,49 +459,41 @@ textarea.form-control {
     margin-bottom: 12px;
     font-size: 14px;
 }
-
 .ringkasan-row .label {
     color: #888;
 }
-
 .ringkasan-row .value {
     color: #ffffff;
     font-weight: 600;
     text-align: right;
 }
-
 .ringkasan-divider {
     border: none;
     border-top: 1px solid #222;
     margin: 16px 0;
 }
-
 .ringkasan-total {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 6px;
 }
-
 .ringkasan-total .label {
     font-weight: 700;
     font-size: 15px;
     color: #ffffff;
 }
-
 .ringkasan-total .value {
     font-family: 'Montserrat', sans-serif;
     font-weight: 800;
     font-size: 20px;
     color: #e91e8c;
 }
-
 .ringkasan-note {
     font-size: 11px;
     color: #666;
     margin-bottom: 20px;
 }
-
 .btn-konfirmasi {
     width: 100%;
     background: linear-gradient(135deg, #e91e8c, #c0166e);
@@ -578,12 +508,10 @@ textarea.form-control {
     transition: all 0.25s;
     text-align: center;
 }
-
 .btn-konfirmasi:hover {
     box-shadow: 0 8px 25px rgba(233,30,140,0.4);
     transform: translateY(-1px);
 }
-
 .riwayat-empty {
     background: #111111;
     border: 1px solid #222222;
@@ -592,18 +520,15 @@ textarea.form-control {
     text-align: center;
     margin-bottom: 40px;
 }
-
 .riwayat-empty-icon {
     font-size: 48px;
     margin-bottom: 16px;
     opacity: 0.4;
 }
-
 .riwayat-empty p {
     color: #666;
     margin-bottom: 20px;
 }
-
 .tabel-riwayat {
     background: #111111;
     border: 1px solid #222222;
@@ -611,12 +536,10 @@ textarea.form-control {
     overflow: hidden;
     margin-bottom: 40px;
 }
-
 .tabel-riwayat table {
     width: 100%;
     border-collapse: collapse;
 }
-
 .tabel-riwayat th {
     background: #1a1a1a;
     padding: 14px 20px;
@@ -628,22 +551,18 @@ textarea.form-control {
     letter-spacing: 0.5px;
     border-bottom: 1px solid #222;
 }
-
 .tabel-riwayat td {
     padding: 16px 20px;
     border-bottom: 1px solid #1a1a1a;
     font-size: 14px;
     color: #cccccc;
 }
-
 .tabel-riwayat tr:last-child td {
     border-bottom: none;
 }
-
 .tabel-riwayat tr:hover td {
     background: rgba(233,30,140,0.03);
 }
-
 .badge {
     display: inline-block;
     padding: 4px 10px;
@@ -653,25 +572,21 @@ textarea.form-control {
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
-
 .badge-pending {
     background: rgba(255,193,7,0.15);
     color: #ffc107;
     border: 1px solid rgba(255,193,7,0.3);
 }
-
 .badge-confirmed {
     background: rgba(40,200,100,0.15);
     color: #28c87a;
     border: 1px solid rgba(40,200,100,0.3);
 }
-
 .badge-cancelled {
     background: rgba(233,30,140,0.15);
     color: #e91e8c;
     border: 1px solid rgba(233,30,140,0.3);
 }
-
 .btn-batal {
     background: transparent;
     color: #e91e8c;
@@ -683,11 +598,9 @@ textarea.form-control {
     cursor: pointer;
     transition: all 0.2s;
 }
-
 .btn-batal:hover {
     background: rgba(233,30,140,0.15);
 }
-
 .auth-wrapper {
     min-height: 100vh;
     display: flex;
@@ -696,7 +609,6 @@ textarea.form-control {
     background: #0a0a0a;
     padding: 30px;
 }
-
 .auth-card {
     background: #111111;
     border: 1px solid #222222;
@@ -705,12 +617,10 @@ textarea.form-control {
     width: 100%;
     max-width: 440px;
 }
-
 .auth-logo {
     text-align: center;
     margin-bottom: 30px;
 }
-
 .auth-logo-icon {
     width: 56px;
     height: 56px;
@@ -725,18 +635,15 @@ textarea.form-control {
     font-family: 'Montserrat', sans-serif;
     margin-bottom: 10px;
 }
-
 .auth-logo-text {
     font-family: 'Montserrat', sans-serif;
     font-weight: 800;
     font-size: 22px;
     color: #ffffff;
 }
-
 .auth-logo-text span {
     color: #e91e8c;
 }
-
 .auth-title {
     font-family: 'Montserrat', sans-serif;
     font-weight: 700;
@@ -744,30 +651,25 @@ textarea.form-control {
     color: #ffffff;
     margin-bottom: 6px;
 }
-
 .auth-subtitle {
     color: #888;
     font-size: 13px;
     margin-bottom: 28px;
 }
-
 .auth-footer {
     text-align: center;
     margin-top: 20px;
     font-size: 14px;
     color: #888;
 }
-
 .auth-footer a {
     color: #e91e8c;
     text-decoration: none;
     font-weight: 600;
 }
-
 .auth-footer a:hover {
     text-decoration: underline;
 }
-
 .alert {
     padding: 14px 18px;
     border-radius: 10px;
@@ -777,25 +679,21 @@ textarea.form-control {
     align-items: center;
     gap: 8px;
 }
-
 .alert-error {
     background: rgba(233,30,140,0.1);
     border: 1px solid rgba(233,30,140,0.3);
     color: #ff6ec7;
 }
-
 .alert-success {
     background: rgba(40,200,100,0.1);
     border: 1px solid rgba(40,200,100,0.3);
     color: #28c87a;
 }
-
 .alert-info {
     background: rgba(59,130,246,0.1);
     border: 1px solid rgba(59,130,246,0.3);
     color: #60a5fa;
 }
-
 .footer {
     background: #111111;
     border-top: 1px solid #222222;
@@ -804,105 +702,143 @@ textarea.form-control {
     color: #555;
     font-size: 13px;
 }
-
 .footer span {
     color: #e91e8c;
 }
-
 @media (max-width: 768px) {
     .navbar {
         padding: 0 16px;
     }
-
     .hero-content {
         padding: 0 24px;
     }
-
     .hero-title {
         font-size: 44px;
     }
-
     .booking-layout {
         grid-template-columns: 1fr;
     }
-
     .ringkasan-card {
         position: static;
     }
-
     .slot-grid {
         grid-template-columns: repeat(3, 1fr);
     }
-
     .container {
         padding: 0 16px;
     }
-
     .tabel-riwayat {
         overflow-x: auto;
     }
 }
-
 .lapangan-image {
     width: 100%;
     height: 180px;
     overflow: hidden;
     border-radius: 12px 12px 0 0;
 }
-
 .lapangan-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 .logout-overlay {
-    display: none; position: fixed; inset: 0;
-    background: rgba(0,0,0,.75); z-index: 9999;
-    align-items: center; justify-content: center;
+    display: none; 
+    position: fixed; 
+    inset: 0;
+    background: rgba(0,0,0,.75); 
+    z-index: 9999;
+    align-items: center; 
+    justify-content: center;
 }
-.logout-overlay.active { display: flex; 
+.logout-overlay.active {
+    display: flex; 
 }
 .logout-box {
-    background: #111; border: 1px solid #2a2a2a;
-    border-radius: 16px; width: 90%; max-width: 380px;
-    padding: 36px 28px; text-align: center;
+    background: #111; 
+    border: 1px solid #2a2a2a;
+    border-radius: 16px; 
+    width: 90%; 
+    max-width: 380px;
+    padding: 36px 28px; 
+    text-align: center;
     box-shadow: 0 0 40px rgba(233,30,140,.12);
 }
-.logout-box .logout-icon { font-size: 48px; margin-bottom: 14px; 
+.logout-box .logout-icon { 
+    font-size: 48px; 
+    margin-bottom: 14px; 
 }
 .logout-box h3 {
-    font-family: 'Montserrat', sans-serif; font-weight: 700;
-    color: #fff; font-size: 18px; margin-bottom: 10px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    color: #fff;
+    font-size: 18px; 
+    margin-bottom: 10px;
 }
-.logout-box p { color: #888; font-size: 14px; margin-bottom: 26px; 
+.logout-box p { 
+    color: #888; 
+    font-size: 14px; 
+    margin-bottom: 26px; 
 }
-.logout-btns { display: flex; gap: 12px; justify-content: center; }
+.logout-btns { 
+    display: flex; 
+    gap: 12px; 
+    justify-content: center; 
+}
 .logout-btns .lbtn-no {
-    padding: 10px 26px; border: 1px solid #333; background: transparent;
-    color: #ccc; border-radius: 8px; cursor: pointer; font-size: 14px;
+    padding: 10px 26px;
+    border: 1px solid #333; 
+    background: transparent;
+    color: #ccc;
+    border-radius: 8px; 
+    cursor: pointer; 
+    font-size: 14px;
     transition: border-color .2s, color .2s;
 }
-.logout-btns .lbtn-no:hover { border-color: #e91e8c; color: #e91e8c; }
+.logout-btns .lbtn-no:hover { 
+    border-color: #e91e8c; 
+    color: #e91e8c; }
 .logout-btns .lbtn-yes {
-    padding: 10px 26px; background: #e91e8c; border: none;
-    color: #fff; border-radius: 8px; cursor: pointer; font-size: 14px;
-    font-weight: 600; text-decoration: none; display: inline-block;
+    padding: 10px 26px; 
+    background: #e91e8c; 
+    border: none;
+    color: #fff; 
+    border-radius: 8px; 
+    cursor: pointer; 
+    font-size: 14px;
+    font-weight: 600; 
+    text-decoration: none; 
+    display: inline-block;
     transition: opacity .2s;
 }
-.logout-btns .lbtn-yes:hover { opacity: .85; }
-.logout-overlay {
-    display:none; position:fixed; inset:0;
-    background:rgba(0,0,0,.75); z-index:9999;
-    align-items:center; justify-content:center;
+.logout-btns .lbtn-yes:hover { 
+    opacity: .85; 
 }
-.logout-overlay.active { display:flex; }
+.logout-overlay {
+    display:none; 
+    position:fixed; 
+    inset:0;
+    background:rgba(0,0,0,.75); 
+    z-index:9999;
+    align-items:center;
+    justify-content:center;
+}
+.logout-overlay.active { 
+    display:flex; 
+}
 .logout-box {
-    background:#111; border:1px solid #2a2a2a; border-radius:16px;
-    width:90%; max-width:380px; padding:36px 28px; text-align:center;
+    background:#111; 
+    border:1px solid #2a2a2a; 
+    border-radius:16px;
+    width:90%; 
+    max-width:380px; 
+    padding:36px 28px; 
+    text-align:center;
     box-shadow:0 0 40px rgba(233,30,140,.12);
 }
 .logout-box .logout-icon { 
-    font-size:48px; margin-bottom:14px; 
+    font-size:48px;
+    margin-bottom:14px; 
 }
 .logout-box h3 { 
     font-family:'Montserrat',sans-serif; 
@@ -941,27 +877,55 @@ textarea.form-control {
     text-decoration:none; 
     display:inline-block; }
 .popup-overlay {
-    display: none; position: fixed; inset: 0;
-    background: rgba(0,0,0,.78); z-index: 9999;
-    align-items: center; justify-content: center;
+    display: none; 
+    position: fixed; 
+    inset: 0;
+    background: rgba(0,0,0,.78); 
+    z-index: 9999;
+    align-items: center; 
+    justify-content: center;
 }
-.popup-overlay.active { display: flex; }
+.popup-overlay.active { 
+    display: flex; 
+}
 .modal-konfirm {
-    background: #111; border: 1px solid #2a2a2a;
-    border-radius: 16px; width: 90%; max-width: 390px;
-    padding: 36px 28px; text-align: center;
+    background: #111; 
+    border: 1px solid #2a2a2a;
+    border-radius: 16px; 
+    width: 90%; 
+    max-width: 390px;
+    padding: 36px 28px; 
+    text-align: center;
     box-shadow: 0 0 40px rgba(233,30,140,.1);
 }
-.modal-konfirm .mk-icon { font-size: 48px; margin-bottom: 14px; }
+.modal-konfirm .mk-icon { 
+    font-size: 48px; 
+    margin-bottom: 14px; 
+}
 .modal-konfirm h3 {
     font-family: 'Montserrat', sans-serif; font-weight: 700;
-    color: #fff; font-size: 18px; margin-bottom: 10px;
+    color: #fff; 
+    font-size: 18px; 
+    margin-bottom: 10px;
 }
-.modal-konfirm p  { color: #888; font-size: 14px; margin-bottom: 24px; }
-.modal-konfirm .mk-btns { display: flex; gap: 12px; justify-content: center; }
+.modal-konfirm p  { 
+    color: #888; 
+    font-size: 14px; 
+    margin-bottom: 24px; 
+}
+.modal-konfirm .mk-btns { 
+    display: flex; 
+    gap: 12px; 
+    justify-content: center; 
+}
 .mk-btns .mbtn-no {
-    padding: 10px 26px; border: 1px solid #333; background: transparent;
-    color: #ccc; border-radius: 8px; cursor: pointer; font-size: 14px;
+    padding: 10px 26px; 
+    border: 1px solid #333; 
+    background: transparent;
+    color: #ccc;
+    border-radius: 8px; 
+    cursor: pointer; 
+    font-size: 14px;
     transition: border-color .2s, color .2s;
 }
 .mk-btns .mbtn-no:hover { 
@@ -969,18 +933,29 @@ textarea.form-control {
     color: #e91e8c; 
 }
 .mk-btns .mbtn-yes {
-    padding: 10px 26px; background: #e91e8c; border: none;
-    color: #fff; border-radius: 8px; cursor: pointer; font-size: 14px;
-    font-weight: 600; text-decoration: none; display: inline-block;
+    padding: 10px 26px;
+    background: #e91e8c; 
+    border: none;
+    color: #fff;
+    border-radius: 8px; 
+    cursor: pointer; 
+    font-size: 14px;
+    font-weight: 600; 
+    text-decoration: none;
+    display: inline-block;
     transition: opacity .2s;
 }
 .mk-btns .mbtn-yes:hover { 
     opacity: .85; 
 }
 .resi-box {
-    background: #111; border: 1px solid #2a2a2a;
-    border-radius: 16px; width: 90%; max-width: 440px;
-    overflow: hidden; box-shadow: 0 0 40px rgba(233,30,140,.15);
+    background: #111; 
+    border: 1px solid #2a2a2a;
+    border-radius: 16px; 
+    width: 90%; 
+    max-width: 440px;
+    overflow: hidden; 
+    box-shadow: 0 0 40px rgba(233,30,140,.15);
 }
 .resi-header {
     background: linear-gradient(135deg,#1a0a12,#2d0a1e);
@@ -989,7 +964,9 @@ textarea.form-control {
 }
 .resi-logo {
     font-family:'Montserrat',sans-serif; font-weight:800;
-    font-size:22px; color:#fff; margin-bottom:4px;
+    font-size:22px; 
+    color:#fff; 
+    margin-bottom:4px;
 }
 .resi-logo span { 
     color:#e91e8c; 
@@ -1048,16 +1025,24 @@ textarea.form-control {
     padding:3px 12px;
     background:rgba(255,165,0,.15); 
     color:#ffa500;
-    border:1px solid #ffa500; border-radius:20px;
-    font-size:12px; font-weight:600;
+    border:1px solid #ffa500; 
+    border-radius:20px;
+    font-size:12px; 
+    font-weight:600;
 }
     .badge-resi-confirmed {
-    background:rgba(0,200,100,.15); color:#00c864;
+    background:rgba(0,200,100,.15); 
+    color:#00c864;
     border-color:#00c864;
 }
 .resi-note {
-    background:#1a1a1a; border-radius:8px; padding:10px 14px;
-    color:#666; font-size:12px; text-align:center; margin-top:12px;
+    background:#1a1a1a;
+    border-radius:8px; 
+    padding:10px 14px;
+    color:#666; 
+    font-size:12px;
+    text-align:center; 
+    margin-top:12px;
 }
 .resi-actions {
     padding:16px 24px 20px; display:flex; gap:12px;
@@ -1078,9 +1063,15 @@ textarea.form-control {
     background:rgba(233,30,140,.1); 
 }
 .resi-actions .btn-tutup {
-    flex:1; background:#e91e8c; border:none; color:#fff;
-    border-radius:8px; padding:11px; cursor:pointer;
-    font-weight:600; font-size:14px; transition:opacity .2s;
+    flex:1; 
+    background:#e91e8c; 
+    border:none; color:#fff;
+    border-radius:8px;
+    padding:11px; 
+    cursor:pointer;
+    font-weight:600; 
+    font-size:14px; 
+    transition:opacity .2s;
 }
 .resi-actions .btn-tutup:hover { 
     opacity:.85; 
