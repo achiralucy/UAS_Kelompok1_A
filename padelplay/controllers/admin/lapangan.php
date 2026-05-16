@@ -6,10 +6,9 @@ cekLoginAdmin();
 $success = '';
 $error   = '';
 
-// ─── Helper upload foto ───────────────────────────────────────
 function uploadFoto($fileInput, $conn) {
     if (!isset($_FILES[$fileInput]) || $_FILES[$fileInput]['error'] === UPLOAD_ERR_NO_FILE) {
-        return ['ok' => true, 'nama' => null]; // tidak upload → biarkan nilai lama
+        return ['ok' => true, 'nama' => null]; 
     }
 
     $file     = $_FILES[$fileInput];
@@ -34,7 +33,6 @@ function uploadFoto($fileInput, $conn) {
     return ['ok' => true, 'nama' => $namaFile];
 }
 
-// ─── Tambah lapangan ─────────────────────────────────────────
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['aksi'] ?? '') === 'tambah') {
     $nama      = bersihkan($_POST['nama']      ?? '');
     $lokasi    = bersihkan($_POST['lokasi']    ?? '');
@@ -49,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['aksi'] ?? '') === 'tambah'
         if (!$upload['ok']) {
             $error = $upload['pesan'];
         } else {
-            $foto  = $upload['nama']; // null jika tidak upload
+            $foto  = $upload['nama'];
             $stmt  = $conn->prepare(
                 "INSERT INTO lapangan (nama, lokasi, deskripsi, harga, status, foto) VALUES (?, ?, ?, ?, ?, ?)"
             );
@@ -63,7 +61,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['aksi'] ?? '') === 'tambah'
     }
 }
 
-// ─── Edit lapangan ────────────────────────────────────────────
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['aksi'] ?? '') === 'edit') {
     $id        = (int)($_POST['id']            ?? 0);
     $nama      = bersihkan($_POST['nama']      ?? '');
@@ -80,10 +77,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['aksi'] ?? '') === 'edit') 
         if (!$upload['ok']) {
             $error = $upload['pesan'];
         } else {
-            // Gunakan foto baru jika ada, jika tidak pakai foto lama
             $foto = $upload['nama'] ?? $fotoLama;
             if ($upload['nama'] && $fotoLama) {
-                // Hapus file lama jika ada & bukan placeholder
                 $pathLama = __DIR__ . '/../../assets/images/' . $fotoLama;
                 if (file_exists($pathLama) && $fotoLama !== 'Padel.jpeg') {
                     @unlink($pathLama);
@@ -103,10 +98,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['aksi'] ?? '') === 'edit') 
     }
 }
 
-// ─── Hapus lapangan ───────────────────────────────────────────
 if (isset($_GET['hapus'])) {
     $id = (int)$_GET['hapus'];
-    // Ambil nama foto sebelum hapus
+
     $resF = $conn->prepare("SELECT foto FROM lapangan WHERE id = ?");
     $resF->bind_param("i", $id);
     $resF->execute();
@@ -115,7 +109,6 @@ if (isset($_GET['hapus'])) {
     $stmt = $conn->prepare("DELETE FROM lapangan WHERE id = ?");
     $stmt->bind_param("i", $id);
     if ($stmt->execute()) {
-        // Hapus file foto
         if (!empty($rowF['foto']) && $rowF['foto'] !== 'Padel.jpeg') {
             $pathFoto = __DIR__ . '/../../assets/images/' . $rowF['foto'];
             if (file_exists($pathFoto)) @unlink($pathFoto);
@@ -137,18 +130,15 @@ $lapanganList = $conn->query("SELECT * FROM lapangan ORDER BY nama ASC");
     <link rel="stylesheet" href="../../assets/css/admin.css">
     <link rel="stylesheet" href="../../assets/css/additions.css">
     <style>
-        /* Foto preview di tabel */
         .foto-thumb {
             width: 60px; height: 45px; object-fit: cover;
             border-radius: 6px; border: 1px solid #2a2a2a;
         }
-        /* Preview gambar di modal */
         .foto-preview-wrap { margin-top: 10px; display: none; }
         .foto-preview-wrap img {
             max-width: 100%; max-height: 160px;
             border-radius: 8px; border: 1px solid #333;
         }
-        /* Upload area */
         .upload-area {
             border: 2px dashed #333; border-radius: 10px;
             padding: 16px; text-align: center;
@@ -160,7 +150,6 @@ $lapanganList = $conn->query("SELECT * FROM lapangan ORDER BY nama ASC");
             cursor: pointer; color: #888; font-size: 13px;
         }
         .upload-area label span { color: #e91e8c; }
-        /* Foto saat ini (edit) */
         .foto-saat-ini {
             width: 80px; height: 60px; object-fit: cover;
             border-radius: 8px; border: 1px solid #2a2a2a;
@@ -275,7 +264,6 @@ $lapanganList = $conn->query("SELECT * FROM lapangan ORDER BY nama ASC");
     </div>
 </div>
 
-<!-- ══════════════ MODAL TAMBAH ══════════════ -->
 <div class="modal-overlay" id="modal-tambah">
     <div class="modal">
         <div class="modal-header">
@@ -310,7 +298,6 @@ $lapanganList = $conn->query("SELECT * FROM lapangan ORDER BY nama ASC");
                         </select>
                     </div>
                 </div>
-                <!-- Upload Foto -->
                 <div class="form-group">
                     <label class="form-label">Foto Lapangan <small style="color:#666;">(jpg/jpeg/png, maks 3MB)</small></label>
                     <div class="upload-area" onclick="document.getElementById('foto-tambah').click()">
@@ -331,7 +318,6 @@ $lapanganList = $conn->query("SELECT * FROM lapangan ORDER BY nama ASC");
     </div>
 </div>
 
-<!-- ══════════════ MODAL EDIT ══════════════ -->
 <div class="modal-overlay" id="modal-edit-lapangan">
     <div class="modal">
         <div class="modal-header">
@@ -368,7 +354,7 @@ $lapanganList = $conn->query("SELECT * FROM lapangan ORDER BY nama ASC");
                         </select>
                     </div>
                 </div>
-                <!-- Foto saat ini -->
+
                 <div class="form-group">
                     <label class="form-label">Foto Saat Ini</label>
                     <img id="edit_foto_preview_lama" src="" alt="Foto lapangan" class="foto-saat-ini">
@@ -391,7 +377,6 @@ $lapanganList = $conn->query("SELECT * FROM lapangan ORDER BY nama ASC");
     </div>
 </div>
 
-<!-- ══════════════ MODAL KONFIRMASI HAPUS ══════════════ -->
 <div class="modal-overlay" id="modal-hapus-lapangan">
     <div class="modal" style="max-width:420px;">
         <div class="modal-header">
@@ -411,7 +396,6 @@ $lapanganList = $conn->query("SELECT * FROM lapangan ORDER BY nama ASC");
     </div>
 </div>
 
-<!-- ══════════════ MODAL LOGOUT ══════════════ -->
 <div class="modal-overlay" id="modal-logout">
     <div class="modal" style="max-width:400px;">
         <div class="modal-header">
@@ -430,7 +414,7 @@ $lapanganList = $conn->query("SELECT * FROM lapangan ORDER BY nama ASC");
 </div>
 
 <script>
-// ── Modal helpers ─────────────────────────────────────────────
+
 function bukaModal(id) {
     document.getElementById(id).classList.add('active');
     document.body.style.overflow = 'hidden';
@@ -445,14 +429,11 @@ document.addEventListener('click', function(e) {
         document.body.style.overflow = '';
     }
 });
-
-// ── Logout ───────────────────────────────────────────────────
 function tampilModalLogout(e) {
     e.preventDefault();
     bukaModal('modal-logout');
 }
 
-// ── Preview gambar sebelum upload ────────────────────────────
 function previewFoto(input, previewId) {
     const wrap = document.getElementById(previewId);
     const img  = wrap.querySelector('img');
@@ -465,8 +446,6 @@ function previewFoto(input, previewId) {
         reader.readAsDataURL(input.files[0]);
     }
 }
-
-// ── Buka modal edit + isi data ───────────────────────────────
 function editLapangan(data) {
     document.getElementById('edit_id').value        = data.id;
     document.getElementById('edit_nama').value      = data.nama;
@@ -476,13 +455,11 @@ function editLapangan(data) {
     document.getElementById('edit_status').value    = data.status;
     document.getElementById('edit_foto_lama').value = data.foto || '';
 
-    // Foto saat ini
     const fotoSrc = data.foto
         ? '../../assets/images/' + data.foto
         : '../../assets/images/Padel.jpeg';
     document.getElementById('edit_foto_preview_lama').src = fotoSrc;
 
-    // Reset preview ganti foto
     const previewEdit = document.getElementById('preview-edit');
     previewEdit.style.display = 'none';
     previewEdit.querySelector('img').src = '';
@@ -490,14 +467,12 @@ function editLapangan(data) {
     bukaModal('modal-edit-lapangan');
 }
 
-// ── Modal hapus lapangan ──────────────────────────────────────
 function modalHapusLapangan(url, nama) {
     document.getElementById('hapus-nama-lapangan').textContent = nama;
     document.getElementById('hapus-url-lapangan').href          = url;
     bukaModal('modal-hapus-lapangan');
 }
 
-// ── Auto-hide alerts ──────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.alert').forEach(function(alert) {
         setTimeout(function() {
