@@ -135,7 +135,6 @@ $bookings = $stmt->get_result();
     <p>© 2026 <span>PadelPlay</span> · Lampung Padel Center</p>
 </footer>
 
-<!-- ══════════════ MODAL KONFIRMASI BATAL ══════════════ -->
 <div class="popup-overlay" id="modal-batal">
     <div class="modal-konfirm">
         <div class="mk-icon">⚠️</div>
@@ -148,7 +147,6 @@ $bookings = $stmt->get_result();
     </div>
 </div>
 
-<!-- ══════════════ POPUP RESI ══════════════ -->
 <div class="popup-overlay" id="popup-resi">
     <div class="resi-box">
         <div class="resi-print-area">
@@ -196,8 +194,6 @@ $bookings = $stmt->get_result();
         </div>
     </div>
 </div>
-
-<!-- ══════════════ MODAL LOGOUT ══════════════ -->
 <div class="popup-overlay" id="modal-logout">
     <div class="modal-konfirm">
         <div class="mk-icon">⎋</div>
@@ -219,26 +215,22 @@ function tutupModal(id) {
     document.getElementById(id).classList.remove('active');
 }
 
-// Tutup klik di luar
 document.querySelectorAll('.popup-overlay').forEach(function(overlay) {
     overlay.addEventListener('click', function(e) {
         if (e.target === overlay) overlay.classList.remove('active');
     });
 });
 
-// Modal konfirmasi batal
 function tampilModalBatal(id) {
     document.getElementById('batal-url').href = 'riwayat.php?batal=' + id;
     bukaModal('modal-batal');
 }
 
-// Modal logout
 function tampilModalLogout(e) {
     e.preventDefault();
     bukaModal('modal-logout');
 }
 
-// Tampil resi dari data booking
 function tampilResi(b) {
     const statusMap = {
         'pending':   { teks: '⏳ Pending',      cls: 'badge-resi-status' },
@@ -267,7 +259,6 @@ function tampilResi(b) {
     bukaModal('popup-resi');
 }
 
-// Auto-hide alert
 document.querySelectorAll('.alert').forEach(function(el) {
     setTimeout(function() {
         el.style.transition = 'opacity .5s';
