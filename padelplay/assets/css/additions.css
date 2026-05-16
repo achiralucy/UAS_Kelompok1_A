@@ -1,18 +1,21 @@
-/* ── Modal overlay aktif ────────────────────────── */
 .modal-overlay.active {
     display: flex !important;
     align-items: center;
     justify-content: center;
 }
-
-/* ── Badge status lapangan ──────────────────────── */
-.badge-aktif    { background: rgba(0,200,100,.12); color: #00c864; border: 1px solid #00c864; }
-.badge-nonaktif { background: rgba(255,80,80,.12);  color: #ff5050; border: 1px solid #ff5050; }
-
-/* ── Alert auto-hide smooth ─────────────────────── */
-.alert { transition: opacity .5s; }
-
-/* ── Foto thumbnail tabel admin ─────────────────── */
+.badge-aktif    { 
+    background: rgba(0,200,100,.12); 
+    color: #00c864; 
+    border: 1px solid #00c864; 
+}
+.badge-nonaktif { 
+    background: rgba(255,80,80,.12);  
+    color: #ff5050; 
+    border: 1px solid #ff5050; 
+}
+.alert { 
+    transition: opacity .5s; 
+}
 .foto-thumb {
     width: 60px; height: 45px;
     object-fit: cover;
@@ -20,8 +23,6 @@
     border: 1px solid #2a2a2a;
     display: block;
 }
-
-/* ── Upload area ────────────────────────────────── */
 .upload-area {
     border: 2px dashed #2a2a2a;
     border-radius: 10px;
@@ -35,25 +36,28 @@
     border-color: #e91e8c;
     background: rgba(233,30,140,.04);
 }
-.upload-area input[type="file"] { display: none; }
+.upload-area input[type="file"] { 
+    display: none; 
+}
 .upload-area label {
     cursor: pointer;
     color: #666;
     font-size: 13px;
     display: block;
 }
-.upload-area label span { color: #e91e8c; }
-
-/* Preview gambar upload */
-.foto-preview-wrap          { margin-top: 10px; display: none; }
+.upload-area label span { 
+    color: #e91e8c; 
+}
+.foto-preview-wrap { 
+    margin-top: 10px; 
+    display: none; 
+}
 .foto-preview-wrap img {
     max-width: 100%; max-height: 160px;
     border-radius: 8px;
     border: 1px solid #2a2a2a;
     display: block;
 }
-
-/* Foto saat ini (modal edit) */
 .foto-saat-ini {
     width: 80px; height: 60px;
     object-fit: cover;
@@ -62,16 +66,12 @@
     margin-bottom: 8px;
     display: block;
 }
-
-/* ── Tombol success ─────────────────────────────── */
 .btn-success {
     background: rgba(0,200,100,.12);
     color: #00c864;
     border: 1px solid #00c864;
 }
 .btn-success:hover { background: rgba(0,200,100,.22); }
-
-/* ── Stats grid (dashboard admin) ───────────────── */
 .stats-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -88,19 +88,23 @@
     gap: 16px;
     transition: border-color .2s;
 }
-.stat-card:hover { border-color: #e91e8c33; }
-.stat-icon  { font-size: 32px; }
+.stat-card:hover {
+    border-color: #e91e8c33; 
+}
+.stat-icon  { 
+    font-size: 32px; 
+}
 .stat-value {
     font-family: 'Montserrat', sans-serif;
-    font-weight: 800; font-size: 26px; color: #fff;
+    font-weight: 800; 
+    font-size: 26px; 
+    color: #fff;
 }
-.stat-label { color: #555; font-size: 13px; margin-top: 2px; }
-
-/* ═══════════════════════════════════════════════════
-   USER — popup resi, modal logout, modal batal
-   ═══════════════════════════════════════════════════ */
-
-/* Tombol kode booking di tabel riwayat */
+.stat-label { 
+    color: #555; 
+    font-size: 13px; 
+    margin-top: 2px; 
+}
 .kode-link {
     font-family: monospace;
     font-size: 12px;
@@ -113,8 +117,6 @@
     transition: opacity .2s;
 }
 .kode-link:hover { opacity: .7; }
-
-/* Badge resi */
 .badge-resi-status {
     display: inline-block;
     padding: 3px 12px;
@@ -130,8 +132,6 @@
     color: #00c864;
     border-color: #00c864;
 }
-
-/* Print — tampilkan hanya area resi */
 @media print {
     body * { visibility: hidden; }
     .resi-print-area,
@@ -142,6 +142,6 @@
         background: #fff !important;
         color: #000 !important;
         padding: 30px;
-    }
-    .resi-actions { display: none !important; }
+}
+.resi-actions { display: none !important; }
 }
