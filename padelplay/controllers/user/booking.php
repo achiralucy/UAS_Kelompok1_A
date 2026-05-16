@@ -79,7 +79,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } elseif ($tgl < date('Y-m-d')) {
         $error = 'Tanggal tidak boleh di masa lalu.';
     } else {
-        // Cek konflik slot
         $cekKonflik = $conn->prepare("
             SELECT id FROM booking
             WHERE lapangan_id = ? AND tanggal = ? AND status != 'cancelled'
@@ -218,8 +217,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             transition: opacity .2s;
         }
         .resi-actions .btn-tutup:hover { opacity: .85; }
-
-        /* ── Modal Logout ────────────────────────────────────────── */
         .modal-overlay-custom {
             display: none; position: fixed; inset: 0;
             background: rgba(0,0,0,.75); z-index: 9998;
@@ -381,7 +378,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <p>© 2026 <span>PadelPlay</span> · Lampung Padel Center</p>
 </footer>
 
-<!-- ══════════════ POPUP RESI ══════════════ -->
 <?php if ($resiData): ?>
 <div class="resi-overlay active" id="popup-resi">
     <div class="resi-box">
@@ -432,8 +428,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 </div>
 <?php endif; ?>
-
-<!-- ══════════════ MODAL LOGOUT ══════════════ -->
 <div class="modal-overlay-custom" id="modal-logout">
     <div class="modal-custom">
         <div style="font-size:40px;margin-bottom:12px;">⎋</div>
