@@ -6,7 +6,6 @@ cekLoginAdmin();
 $success = '';
 $error   = '';
 
-// ─── Update status booking ────────────────────────────────────
 if (isset($_GET['update_status']) && isset($_GET['status'])) {
     $bookId = (int)$_GET['update_status'];
     $status = bersihkan($_GET['status']);
@@ -21,8 +20,6 @@ if (isset($_GET['update_status']) && isset($_GET['status'])) {
         }
     }
 }
-
-// ─── Filter ───────────────────────────────────────────────────
 $filterStatus  = bersihkan($_GET['filter_status']  ?? '');
 $filterTanggal = bersihkan($_GET['filter_tanggal'] ?? '');
 
@@ -113,7 +110,6 @@ $bookings = $stmtBook->get_result();
                 <div class="alert alert-error">⚠️ <?= htmlspecialchars($error) ?></div>
             <?php endif; ?>
 
-            <!-- Filter -->
             <div class="card" style="margin-bottom:20px;">
                 <div class="card-body" style="padding:16px 22px;">
                     <form method="GET" style="display:flex; gap:14px; align-items:flex-end; flex-wrap:wrap;">
@@ -214,8 +210,6 @@ $bookings = $stmtBook->get_result();
         </div>
     </div>
 </div>
-
-<!-- ══════════════ MODAL KONFIRMASI STATUS ══════════════ -->
 <div class="modal-overlay" id="modal-konfirmasi-status">
     <div class="modal" style="max-width:420px;">
         <div class="modal-header">
@@ -234,7 +228,6 @@ $bookings = $stmtBook->get_result();
     </div>
 </div>
 
-<!-- ══════════════ MODAL LOGOUT ══════════════ -->
 <div class="modal-overlay" id="modal-logout">
     <div class="modal" style="max-width:400px;">
         <div class="modal-header">
