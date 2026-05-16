@@ -63,7 +63,6 @@ $namaUser   = $sudahLogin ? htmlspecialchars($_SESSION['user_nama']) : '';
     </div>
 </section>
 
-<!-- ── Fitur ──────────────────────────────────────────────── -->
 <section style="padding: 70px 0; background: #0f0f0f;">
     <div class="container">
         <h2 style="font-family:'Montserrat',sans-serif; font-weight:800; font-size:28px; color:#fff; margin-bottom:8px;">
@@ -91,7 +90,6 @@ $namaUser   = $sudahLogin ? htmlspecialchars($_SESSION['user_nama']) : '';
     </div>
 </section>
 
-<!-- ── Lapangan Tersedia ──────────────────────────────────── -->
 <section style="padding: 60px 0;">
     <div class="container">
         <h2 style="font-family:'Montserrat',sans-serif; font-weight:800; font-size:28px; color:#fff; margin-bottom:8px;">
@@ -142,7 +140,6 @@ $namaUser   = $sudahLogin ? htmlspecialchars($_SESSION['user_nama']) : '';
     <p>© 2026 <span>PadelPlay</span> · Lampung Padel Center · Dibuat oleh Kelompok 1 Ilmu Komputer A Unila</p>
 </footer>
 
-<!-- ══════════════ MODAL LOGOUT ══════════════ -->
 <div class="logout-overlay" id="modal-logout">
     <div class="logout-box">
         <div class="logout-icon">⎋</div>
@@ -164,7 +161,6 @@ function tampilModalLogout(e) {
 function tutupModalLogout() {
     document.getElementById('modal-logout').classList.remove('active');
 }
-// Klik di luar box menutup modal
 document.getElementById('modal-logout').addEventListener('click', function(e) {
     if (e.target === this) tutupModalLogout();
 });
