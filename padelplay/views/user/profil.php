@@ -117,37 +117,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </ul>
 
     <div class="navbar-actions">
-
         <span style="color:#888;font-size:14px;">
             Halo, <?= htmlspecialchars($_SESSION['user_nama'] ?? 'User') ?>
         </span>
-
         <a href="profil.php" class="btn-profil-nav">
             Profil
         </a>
-
         <a href="../../controllers/logout.php" class="btn-keluar">
             ⎋ Keluar
         </a>
-
     </div>
-
 </nav>
 
 <div class="container">
-
     <div class="page-header">
-
         <h1 class="page-title">
             Kelola <span>Profil</span>
         </h1>
-
         <p class="page-subtitle">
             Edit data akun kamu.
         </p>
-
     </div>
-
     <?php if ($success): ?>
         <div class="alert alert-success">
             <?= $success ?>
@@ -159,33 +149,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <?= $error ?>
         </div>
     <?php endif; ?>
-
     <div class="profil-card">
-
         <div class="profil-header">
-
             <div class="profil-avatar">
                 <?= strtoupper(substr($user['name'], 0, 1)) ?>
             </div>
-
             <div>
-
                 <div class="profil-nama">
                     <?= htmlspecialchars($user['name']) ?>
                 </div>
-
                 <div class="profil-email">
                     <?= htmlspecialchars($user['email']) ?>
                 </div>
-
             </div>
-
         </div>
 
         <form method="POST" autocomplete="off" spellcheck="false">
 
             <div class="input-group">
-
                 <input
                     type="text"
                     name="nama"
@@ -194,13 +175,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     value="<?= htmlspecialchars($user['name']) ?>"
                     required
                 >
-
                 <label>Nama Lengkap</label>
-
             </div>
-
             <div class="input-group">
-
                 <input
                     type="email"
                     name="email"
@@ -209,13 +186,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     value="<?= htmlspecialchars($user['email']) ?>"
                     required
                 >
-
                 <label>Email</label>
-
             </div>
 
             <div class="input-group">
-
                 <input
                     type="password"
                     name="password_lama"
@@ -223,13 +197,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     placeholder=" "
                     autocomplete="new-password"
                 >
-
                 <label>Masukkan kata sandi lama</label>
-
             </div>
-
             <div class="input-group">
-
                 <input
                     type="password"
                     name="password_baru"
@@ -237,19 +207,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     placeholder=" "
                     autocomplete="new-password"
                 >
-
                 <label>Masukkan kata sandi baru</label>
-
             </div>
-
             <button type="submit" class="btn-pink btn-profil">
                 Simpan Perubahan
             </button>
-
         </form>
-
     </div>
-
 </div>
 
 <footer class="footer">
