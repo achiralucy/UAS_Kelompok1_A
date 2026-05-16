@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: May 03, 2026 at 07:59 PM
+-- Generation Time: May 16, 2026 at 02:22 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.3.26
 
@@ -29,6 +29,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `booking` (
   `id` int NOT NULL,
+  `kode_booking` varchar(30) NOT NULL,
   `user_id` int DEFAULT NULL,
   `lapangan_id` int DEFAULT NULL,
   `tanggal` date DEFAULT NULL,
@@ -45,9 +46,13 @@ CREATE TABLE `booking` (
 -- Dumping data for table `booking`
 --
 
-INSERT INTO `booking` (`id`, `user_id`, `lapangan_id`, `tanggal`, `jam_mulai`, `jam_selesai`, `durasi`, `total_harga`, `catatan`, `status`, `created_at`) VALUES
-(1, 1, 1, '2026-05-03', '07:00:00', '08:00:00', 1, 150000, '', 'confirmed', '2026-05-03 18:49:15'),
-(2, 1, 2, '2026-05-03', '09:00:00', '11:00:00', 2, 500000, '', 'pending', '2026-05-03 19:50:12');
+INSERT INTO `booking` (`id`, `kode_booking`, `user_id`, `lapangan_id`, `tanggal`, `jam_mulai`, `jam_selesai`, `durasi`, `total_harga`, `catatan`, `status`, `created_at`) VALUES
+(1, '', 1, 1, '2026-05-03', '07:00:00', '08:00:00', 1, 150000, '', 'confirmed', '2026-05-03 18:49:15'),
+(2, '', 1, 2, '2026-05-03', '09:00:00', '11:00:00', 2, 500000, '', 'confirmed', '2026-05-03 19:50:12'),
+(3, 'PDL-4676422F', 1, 2, '2026-05-15', '21:00:00', '22:00:00', 1, 250000, '', 'confirmed', '2026-05-15 11:28:59'),
+(4, 'PDL-CB94E556', 1, 2, '2026-05-15', '07:00:00', '08:00:00', 1, 150000, '', 'cancelled', '2026-05-15 11:43:25'),
+(5, 'PDL-7B611787', 4, 4, '2026-05-16', '16:00:00', '18:00:00', 2, 200000, '', 'cancelled', '2026-05-15 12:20:03'),
+(6, 'PDL-41C38159', 4, 2, '2026-05-15', '07:00:00', '08:00:00', 1, 100000, '', 'pending', '2026-05-15 12:25:19');
 
 -- --------------------------------------------------------
 
@@ -71,8 +76,8 @@ CREATE TABLE `lapangan` (
 
 INSERT INTO `lapangan` (`id`, `nama`, `harga`, `status`, `lokasi`, `deskripsi`, `foto`) VALUES
 (1, 'Padelin', 150000, 'aktif', 'Lampung Center', 'hgvgvfyhykhvfyh', NULL),
-(2, 'Padel-an', 250000, 'aktif', 'Lapadel', 'zsjnxjasnxjanxjqbwhdbqcvb', NULL),
-(4, 'Padel-Yuk', 100000, 'aktif', 'Kedamaian', 'ndhhdhesydhedhu', NULL);
+(2, 'Padel-an', 100000, 'aktif', 'Lapadel', 'zsjnxjasnxjanxjqbwhdbqcvb', 'lapangan_1778846979_1ef71724.png'),
+(4, 'Padel-Yuk', 100000, 'aktif', 'Kedamaian', 'ndhhdhesydhedhu', 'lapangan_1778844661_558d3c34.jpeg');
 
 -- --------------------------------------------------------
 
@@ -94,8 +99,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `role`, `created_at`) VALUES
-(1, 'Achira Desya Lucy', 'achiralucy@gmail.com', '$2y$10$Fjiv9Psiyd7GAvCpKDL70OyX1Zpf/d1S0SHMB42pHQpWPRrwR6fj2', 'user', '2026-05-03 18:10:15'),
-(2, 'Admin', 'admin@padelplay.com', '$2y$10$lgrFZk9U/hNzTRPX2KeZhOvy11XnMAcNmZWxVTKBHY/hMNpOkVUF.', 'admin', '2026-05-03 18:10:15');
+(2, 'Admin', 'admin@padelplay.com', '$2y$10$lgrFZk9U/hNzTRPX2KeZhOvy11XnMAcNmZWxVTKBHY/hMNpOkVUF.', 'admin', '2026-05-03 18:10:15'),
+(4, 'Achira Desya Lucy', 'achiralucy@gmail.com', '$2y$10$36DIapS1Pg07kL9PmZ1Xw..b2nj1JmSbb7AMSgAHeaLTnSYMcG5R.', 'user', '2026-05-15 12:14:01'),
+(5, 'achi', 'achi@gmail.com', '$2y$10$DJRifxoEjuYG9XNb4o0CruacPhWlV.IiMBG2B8MtWrWpWKE2MPvxy', 'user', '2026-05-15 12:24:11');
 
 --
 -- Indexes for dumped tables
@@ -128,7 +134,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `booking`
 --
 ALTER TABLE `booking`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `lapangan`
@@ -140,7 +146,7 @@ ALTER TABLE `lapangan`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
