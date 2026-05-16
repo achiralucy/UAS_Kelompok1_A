@@ -3,7 +3,6 @@ session_start();
 require_once '../../models/koneksi.php';
 cekLoginAdmin();
 
-// Statistik ringkas
 $totalLapangan = $conn->query("SELECT COUNT(*) as c FROM lapangan")->fetch_assoc()['c'] ?? 0;
 $totalUser     = $conn->query("SELECT COUNT(*) as c FROM users WHERE role = 'user'")->fetch_assoc()['c'] ?? 0;
 $totalBooking  = $conn->query("SELECT COUNT(*) as c FROM booking")->fetch_assoc()['c'] ?? 0;
@@ -12,7 +11,6 @@ $bookingPending= $conn->query("SELECT COUNT(*) as c FROM booking WHERE status='p
 $pendapatanRes = $conn->query("SELECT SUM(total_harga) as total FROM booking WHERE status='confirmed'");
 $pendapatan    = $pendapatanRes->fetch_assoc()['total'] ?? 0;
 
-// Booking terbaru
 $bookingTerbaru = $conn->query("
     SELECT b.*, u.name AS user_nama, l.nama AS lapangan_nama
     FROM booking b
@@ -72,7 +70,6 @@ $bookingTerbaru = $conn->query("
                 </div>
             </div>
 
-            <!-- Statistik -->
             <div class="stats-grid">
                 <div class="stat-card">
                     <div class="stat-icon">🏟️</div>
@@ -104,7 +101,6 @@ $bookingTerbaru = $conn->query("
                 </div>
             </div>
 
-            <!-- Pendapatan -->
             <div class="card" style="margin-bottom:20px;">
                 <div class="card-body" style="padding:20px 24px; display:flex; align-items:center; gap:16px;">
                     <div style="font-size:32px;">💰</div>
@@ -117,7 +113,6 @@ $bookingTerbaru = $conn->query("
                 </div>
             </div>
 
-            <!-- Booking Terbaru -->
             <div class="card">
                 <div class="card-header">
                     <span class="card-header-title">Booking Terbaru</span>
@@ -168,7 +163,6 @@ $bookingTerbaru = $conn->query("
     </div>
 </div>
 
-<!-- Modal Logout -->
 <div class="modal-overlay" id="modal-logout">
     <div class="modal" style="max-width:400px;">
         <div class="modal-header">
