@@ -46,10 +46,10 @@ $error = $_GET['error'] ?? '';
         </form>
 
         <div class="auth-footer">
-            Belum punya akun? <a href="/PadelPlay4/controllers/user/register.php">Daftar</a>
+            Belum punya akun? <a href="/PadelPlay/controllers/user/register.php">Daftar</a>
         </div>
     </div>
 </div>
-<script src="../assets/js/user.js"></script>
+<script src="../assets/js/user.js?v=1.1"></script>
 </body>
 </html>

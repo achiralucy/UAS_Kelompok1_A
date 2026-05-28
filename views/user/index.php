@@ -4,7 +4,9 @@ require_once __DIR__ . '/../../models/koneksi.php';
 
 $sudahLogin = isset($_SESSION['user_id']) && $_SESSION['role'] === 'user';
 $namaUser   = $sudahLogin ? htmlspecialchars($_SESSION['user_nama']) : '';
+cekInactivity();
 ?>
+
 <!DOCTYPE html>
 <html lang="id">
 <head>

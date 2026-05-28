@@ -5,6 +5,7 @@ require_once '../../models/koneksi.php';
 $sudahLogin = isset($_SESSION['user_id']) && $_SESSION['role'] === 'user';
 
 $res = $conn->query("SELECT * FROM lapangan WHERE status = 'aktif' ORDER BY nama ASC");
+cekInactivity();
 ?>
 <!DOCTYPE html>
 <html lang="id">

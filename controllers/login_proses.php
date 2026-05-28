@@ -22,6 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['user_nama'] = $user['name']; 
             $_SESSION['role'] = $user['role'];
+            $_SESSION['terakhir_aktif'] = time();
 
             if ($user['role'] === 'admin') {
                 header("Location: ../views/admin/dashboard.php");
@@ -38,3 +39,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     header("Location: ../views/login.php");
     exit;
 }
+?>
