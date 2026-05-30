@@ -6,9 +6,9 @@ cekLoginUser();
 $user_id = $_SESSION['user_id'];
 $success = '';
 
-if (isset($_GET['batal'])) {
+if (isset($_GET['batal']) && is_numeric($_GET['batal'])) {
     $bookId = (int)$_GET['batal'];
-    $stmtBatal = $conn->prepare("UPDATE booking SET status = 'cancelled' WHERE id = ? AND user_id = ? AND status = 'pending'");
+    $stmtBatal = $conn->prepare("UPDATE booking SET status = 'cancelled' WHERE id = ? AND user_id = ? AND status = 'pending' AND tanggal >= CURDATE()");
     $stmtBatal->bind_param("ii", $bookId, $user_id);
     if ($stmtBatal->execute() && $stmtBatal->affected_rows > 0) {
         $success = 'Booking berhasil dibatalkan.';
@@ -36,8 +36,7 @@ $bookings = $stmt->get_result();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Riwayat Booking - PadelPlay</title>
-    <link rel="stylesheet" href="../../assets/css/user.css">
-    <link rel="stylesheet" href="../../assets/css/additions.css">
+    <link rel="stylesheet" href="../../assets/css/style.css?v=1.9">
 </head>
 <body>
 
@@ -46,14 +45,23 @@ $bookings = $stmt->get_result();
         <div class="navbar-logo">P</div>
         <span class="navbar-brand-text">Padel<span>Play</span></span>
     </a>
-    <ul class="navbar-nav">
+
+    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+
+    <ul class="navbar-nav" id="navbarNav">
         <li><a href="index.php">Beranda</a></li>
         <li><a href="lapangan.php">Lapangan</a></li>
         <li><a href="../../controllers/user/booking.php">Booking</a></li>
         <li><a href="riwayat.php" class="active">Riwayat</a></li>
+        <li class="mobile-only"><a href="profil.php">Profil</a></li>
+        <li class="mobile-only"><a href="#" onclick="tampilModalLogout(event)">Keluar</a></li>
     </ul>
+
     <div class="navbar-actions">
-        <span style="color:#888;font-size:14px;">Halo, <?= htmlspecialchars($_SESSION['user_nama']) ?></span>
+        <span class="navbar-user-greeting">
+            Halo, <?= htmlspecialchars($_SESSION['user_nama']) ?>
+        </span>
+
         <a href="profil.php" class="btn-profil-nav">Profil</a>
         <a href="#" class="btn-keluar" onclick="tampilModalLogout(event)">⎋ Keluar</a>
     </div>
@@ -73,7 +81,7 @@ $bookings = $stmt->get_result();
         <div class="riwayat-empty">
             <div class="riwayat-empty-icon">📋</div>
             <p>Belum ada booking.</p>
-            <a href="../../controllers/user/booking.php" class="btn-pink">Booking Sekarang</a>
+            <a href="../../controllers/user/booking.php" class="btn btn-pink">Booking Sekarang</a>
         </div>
     <?php else: ?>
         <div class="tabel-riwayat">
@@ -100,13 +108,13 @@ $bookings = $stmt->get_result();
                             </button>
                         </td>
                         <td>
-                            <strong style="color:#fff;"><?= htmlspecialchars($b['lapangan_nama']) ?></strong><br>
-                            <small style="color:#666;"><?= htmlspecialchars($b['lokasi']) ?></small>
+                            <strong class="table-field-name"><?= htmlspecialchars($b['lapangan_nama']) ?></strong><br>
+                            <small class="table-field-location"><?= htmlspecialchars($b['lokasi']) ?></small>
                         </td>
                         <td><?= date('d M Y', strtotime($b['tanggal'])) ?></td>
                         <td><?= substr($b['jam_mulai'], 0, 5) ?> - <?= substr($b['jam_selesai'], 0, 5) ?></td>
                         <td><?= $b['durasi'] ?> jam</td>
-                        <td style="color:#e91e8c; font-weight:700;"><?= formatRupiah($b['total_harga']) ?></td>
+                        <td class="table-field-total"><?= formatRupiah($b['total_harga']) ?></td>
                         <td>
                             <?php if ($b['status'] === 'pending'): ?>
                                 <span class="badge badge-pending">Pending</span>
@@ -121,7 +129,7 @@ $bookings = $stmt->get_result();
                                 <button class="btn-batal"
                                     onclick="tampilModalBatal(<?= $b['id'] ?>)">Batalkan</button>
                             <?php else: ?>
-                                <span style="color:#444;">-</span>
+                                <span class="table-field-location">-</span>
                             <?php endif; ?>
                         </td>
                     </tr>
@@ -140,7 +148,7 @@ $bookings = $stmt->get_result();
     <div class="modal-konfirm">
         <div class="mk-icon">⚠️</div>
         <h3>Konfirmasi Pembatalan</h3>
-        <p>Yakin ingin membatalkan booking ini?<br>Status akan berubah menjadi <strong style="color:#e91e8c;">Dibatalkan</strong>.</p>
+        <p>Yakin ingin membatalkan booking ini?<br>Status akan berubah menjadi <strong class="teks-batal">Dibatalkan</strong>.</p>
         <div class="mk-btns">
             <button class="mbtn-no" onclick="tutupModal('modal-batal')">Tidak</button>
             <a href="#" id="batal-url" class="mbtn-yes">Ya, Batalkan</a>
@@ -153,9 +161,9 @@ $bookings = $stmt->get_result();
         <div class="resi-print-area">
             <div class="resi-header">
                 <div class="resi-logo">Padel<span>Play</span></div>
-                <div style="color:#666;font-size:12px;">Booking Lapangan Padel #1 di Lampung</div>
+                <div class="resi-subtitle-text">Booking Lapangan Padel #1 di Lampung</div>
                 <div class="resi-kode" id="r-kode">PDL-XXXXXXXX</div>
-                <div style="color:#888;font-size:12px;">Kode Booking</div>
+                <div class="resi-caption-text">Kode Booking</div>
             </div>
             <div class="resi-body">
                 <div class="resi-row">
@@ -195,6 +203,7 @@ $bookings = $stmt->get_result();
         </div>
     </div>
 </div>
+
 <div class="popup-overlay" id="modal-logout">
     <div class="modal-konfirm">
         <div class="mk-icon">⎋</div>
@@ -267,6 +276,10 @@ document.querySelectorAll('.alert').forEach(function(el) {
         setTimeout(function() { el.remove(); }, 500);
     }, 4500);
 });
+function toggleMenu() {
+    document.getElementById('navbarNav').classList.toggle('show');
+    document.body.classList.toggle('menu-open');
+}
 </script>
 </body>
 </html>

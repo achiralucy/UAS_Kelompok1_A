@@ -21,15 +21,41 @@ function redirect($url) {
     exit();
 }
 
+function cekInactivity() {
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+    $batas_inactivity = 120; 
+    if (isset($_SESSION['user_id'])) {
+        if (isset($_SESSION['terakhir_aktif'])) {
+            $durasi_diam = time() - $_SESSION['terakhir_aktif'];
+            if ($durasi_diam > $batas_inactivity) {
+                session_unset();
+                session_destroy();
+                redirect('/PadelPlay/views/login.php?error=Sesi Anda telah berakhir karena tidak ada aktivitas selama 2 menit.');
+            }
+        }
+        $_SESSION['terakhir_aktif'] = time();
+    }
+}
+
 function cekLoginUser() {
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+    cekInactivity();
     if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'user') {
-        redirect('/padleplay/views/login.php');
+        redirect('/PadelPlay/views/login.php');
     }
 }
 
 function cekLoginAdmin() {
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+    cekInactivity();
     if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
-        redirect('/padleplay/views/login.php');
+        redirect('/PadelPlay/views/login.php');
     }
 }
 

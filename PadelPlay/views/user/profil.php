@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once '../../models/koneksi.php';
+
 cekLoginUser();
 
 $user_id = $_SESSION['user_id'];
@@ -23,149 +24,164 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $error = 'Nama dan email wajib diisi.';
 
+    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+
+        $error = 'Format email tidak valid.';
+
     } else {
 
-        if (!empty($passwordLama) || !empty($passwordBaru)) {
+        $cekEmail = $conn->prepare(
+            "SELECT id FROM users WHERE email = ? AND id != ?"
+        );
 
-            if (empty($passwordLama) || empty($passwordBaru)) {
+        $cekEmail->bind_param("si", $email, $user_id);
+        $cekEmail->execute();
 
-                $error = 'Password lama dan password baru wajib diisi.';
+        $resultEmail = $cekEmail->get_result();
 
-            } elseif (!password_verify($passwordLama, $user['password'])) {
+        if ($resultEmail->num_rows > 0) {
 
-                $error = 'Password lama tidak sesuai.';
+            $error = 'Email sudah digunakan akun lain.';
 
-            } elseif (strlen($passwordBaru) < 6) {
+        } else {
 
-                $error = 'Password baru minimal 6 karakter.';
+            if (!empty($passwordLama) || !empty($passwordBaru)) {
+
+                if (empty($passwordLama) || empty($passwordBaru)) {
+
+                    $error = 'Password lama dan password baru wajib diisi.';
+
+                } elseif (!password_verify($passwordLama, $user['password'])) {
+
+                    $error = 'Password lama tidak sesuai.';
+
+                } elseif (strlen($passwordBaru) < 6) {
+
+                    $error = 'Password baru minimal 6 karakter.';
+
+                } else {
+
+                    $hash = password_hash($passwordBaru, PASSWORD_DEFAULT);
+
+                    $update = $conn->prepare(
+                        "UPDATE users 
+                         SET name = ?, email = ?, password = ?
+                         WHERE id = ?"
+                    );
+
+                    $update->bind_param(
+                        "sssi",
+                        $nama,
+                        $email,
+                        $hash,
+                        $user_id
+                    );
+                }
 
             } else {
 
-                $hash = password_hash($passwordBaru, PASSWORD_DEFAULT);
-
                 $update = $conn->prepare(
-                    "UPDATE users SET name = ?, email = ?, password = ? WHERE id = ?"
+                    "UPDATE users 
+                     SET name = ?, email = ?
+                     WHERE id = ?"
                 );
 
                 $update->bind_param(
-                    "sssi",
+                    "ssi",
                     $nama,
                     $email,
-                    $hash,
                     $user_id
                 );
             }
 
-        } else {
+            if (empty($error)) {
 
-            $update = $conn->prepare(
-                "UPDATE users SET name = ?, email = ? WHERE id = ?"
-            );
+                if ($update && $update->execute()) {
 
-            $update->bind_param(
-                "ssi",
-                $nama,
-                $email,
-                $user_id
-            );
-        }
+                    $_SESSION['user_nama'] = $nama;
 
-        if (empty($error)) {
+                    $success = 'Profil berhasil diperbarui.';
 
-            if ($update->execute()) {
+                    $stmt = $conn->prepare(
+                        "SELECT * FROM users WHERE id = ?"
+                    );
 
-                $_SESSION['user_nama'] = $nama;
+                    $stmt->bind_param("i", $user_id);
+                    $stmt->execute();
 
-                $success = 'Profil berhasil diperbarui.';
+                    $user = $stmt->get_result()->fetch_assoc();
 
-                $stmt = $conn->prepare("SELECT * FROM users WHERE id = ?");
-                $stmt->bind_param("i", $user_id);
-                $stmt->execute();
-                $user = $stmt->get_result()->fetch_assoc();
+                } else {
 
-            } else {
-
-                $error = 'Gagal memperbarui profil.';
+                    $error = 'Gagal memperbarui profil.';
+                }
             }
         }
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profil Saya - PadelPlay</title>
-    <link rel="stylesheet" href="../../assets/css/user.css">
+    <link rel="stylesheet" href="../../assets/css/style.css?v=1.8">
 </head>
 <body>
 
 <nav class="navbar">
-
     <a href="index.php" class="navbar-brand">
         <div class="navbar-logo">P</div>
         <span class="navbar-brand-text">Padel<span>Play</span></span>
     </a>
 
-    <ul class="navbar-nav">
+    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+
+    <ul class="navbar-nav" id="navbarNav">
         <li><a href="index.php">Beranda</a></li>
         <li><a href="lapangan.php">Lapangan</a></li>
         <li><a href="../../controllers/user/booking.php">Booking</a></li>
         <li><a href="riwayat.php">Riwayat</a></li>
+        <li class="mobile-only"><a href="profil.php" class="active">Profil</a></li>
+        <li class="mobile-only"><a href="#" onclick="tampilModalLogout(event)">Keluar</a></li>
     </ul>
 
     <div class="navbar-actions">
-        <span style="color:#888;font-size:14px;">
+        <span class="navbar-user-greeting">
             Halo, <?= htmlspecialchars($_SESSION['user_nama'] ?? 'User') ?>
         </span>
-        <a href="profil.php" class="btn-profil-nav">
-            Profil
-        </a>
-        <a href="../../controllers/logout.php" class="btn-keluar">
-            ⎋ Keluar
-        </a>
+        <a href="profil.php" class="btn-profil-nav active">Profil</a>
+        <a href="#" class="btn-keluar" onclick="tampilModalLogout(event)">⎋ Keluar</a>
     </div>
 </nav>
 
 <div class="container">
     <div class="page-header">
-        <h1 class="page-title">
-            Kelola <span>Profil</span>
-        </h1>
-        <p class="page-subtitle">
-            Edit data akun kamu.
-        </p>
+        <h1 class="page-title">Kelola <span>Profil</span></h1>
+        <p class="page-subtitle">Edit data akun kamu.</p>
     </div>
+    
     <?php if ($success): ?>
-        <div class="alert alert-success">
-            <?= $success ?>
-        </div>
+        <div class="alert alert-success"><?= $success ?></div>
     <?php endif; ?>
 
     <?php if ($error): ?>
-        <div class="alert alert-error">
-            <?= $error ?>
-        </div>
+        <div class="alert alert-error"><?= $error ?></div>
     <?php endif; ?>
+
     <div class="profil-card">
         <div class="profil-header">
             <div class="profil-avatar">
                 <?= strtoupper(substr($user['name'], 0, 1)) ?>
             </div>
             <div>
-                <div class="profil-nama">
-                    <?= htmlspecialchars($user['name']) ?>
-                </div>
-                <div class="profil-email">
-                    <?= htmlspecialchars($user['email']) ?>
-                </div>
+                <div class="profil-nama"><?= htmlspecialchars($user['name']) ?></div>
+                <div class="profil-email"><?= htmlspecialchars($user['email']) ?></div>
             </div>
         </div>
 
         <form method="POST" autocomplete="off" spellcheck="false">
-
             <div class="input-group">
                 <input
                     type="text"
@@ -177,6 +193,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 >
                 <label>Nama Lengkap</label>
             </div>
+
             <div class="input-group">
                 <input
                     type="email"
@@ -195,10 +212,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     name="password_lama"
                     class="input-profil"
                     placeholder=" "
-                    autocomplete="new-password"
+                    autocomplete="current-password"
                 >
                 <label>Masukkan kata sandi lama</label>
             </div>
+
             <div class="input-group">
                 <input
                     type="password"
@@ -209,7 +227,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 >
                 <label>Masukkan kata sandi baru</label>
             </div>
-            <button type="submit" class="btn-pink btn-profil">
+
+            <button type="submit" class="btn btn-pink btn-profil">
                 Simpan Perubahan
             </button>
         </form>
@@ -219,6 +238,48 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <footer class="footer">
     <p>© 2026 <span>PadelPlay</span> · Lampung Padel Center</p>
 </footer>
+
+<div class="logout-overlay" id="modal-logout">
+    <div class="logout-box">
+        <div class="logout-icon">⎋</div>
+        <h3>Konfirmasi Keluar</h3>
+        <p>Apakah Anda yakin ingin keluar dari akun PadelPlay?</p>
+
+        <div class="logout-btns">
+            <button class="lbtn-no" onclick="tutupModalLogout()">
+                Tidak
+            </button>
+
+            <a href="../../controllers/logout.php" class="lbtn-yes">
+                Ya, Keluar
+            </a>
+        </div>
+    </div>
+</div>
+
+<script src="../../assets/js/user.js"></script>
+
+<script>
+function tampilModalLogout(e) {
+    e.preventDefault();
+    document.getElementById('modal-logout').classList.add('active');
+}
+
+function tutupModalLogout() {
+    document.getElementById('modal-logout').classList.remove('active');
+}
+
+document.getElementById('modal-logout').addEventListener('click', function(e) {
+    if (e.target === this) {
+        tutupModalLogout();
+    }
+});
+
+function toggleMenu() {
+    document.getElementById('navbarNav').classList.toggle('show');
+    document.body.classList.toggle('menu-open');
+}
+</script>
 
 </body>
 </html>

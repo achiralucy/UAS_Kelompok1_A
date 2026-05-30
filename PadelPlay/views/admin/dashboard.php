@@ -25,42 +25,48 @@ $bookingTerbaru = $conn->query("
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - Admin PadelPlay</title>
-    <link rel="stylesheet" href="../../assets/css/admin.css">
-    <link rel="stylesheet" href="../../assets/css/additions.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
 </head>
 <body>
 <div class="admin-wrapper">
 
     <aside class="sidebar">
-        <a href="dashboard.php" class="sidebar-brand">
-            <div class="sidebar-brand-icon">P</div>
-            <span class="sidebar-brand-text">Padel<span>Play</span></span>
+    <a href="dashboard.php" class="sidebar-brand">
+        <div class="sidebar-brand-icon">P</div>
+        <b class="sidebar-brand-text">Padel<em class="brand-play">Play</em></b>
+    </a>
+    
+    <span class="sidebar-badge">Admin Padel</span>
+    
+    <ul class="sidebar-menu">
+        <li class="sidebar-menu-label">Menu</li>
+        <li><a href="dashboard.php" class="active">Dashboard</a></li>
+        <li><a href="../../controllers/admin/lapangan.php">Lapangan</a></li>
+        <li><a href="../../controllers/admin/booking.php">Booking</a></li>
+        <li><a href="../../controllers/admin/kelola.php">Pengguna</a></li>
+    </ul>
+    <div class="sidebar-footer">
+        <a href="#" onclick="tampilModalLogout(event)">
+            <span class="sidebar-menu-icon">⎋</span><span>Keluar</span>
         </a>
-        <span class="sidebar-badge">Admin Panel</span>
-        <ul class="sidebar-menu">
-            <li class="sidebar-menu-label">Menu</li>
-            <li><a href="dashboard.php" class="active">Dashboard</a></li>
-            <li><a href="../../controllers/admin/lapangan.php">Lapangan</a></li>
-            <li><a href="../../controllers/admin/booking.php">Booking</a></li>
-            <li><a href="../../controllers/admin/kelola.php">Pengguna</a></li>
-        </ul>
-        <div class="sidebar-footer">
-            <a href="#" onclick="tampilModalLogout(event)">
-                <span class="sidebar-menu-icon">⎋</span><span>Keluar</span>
-            </a>
-        </div>
-    </aside>
+    </div>
+</aside>
+    
+    <div class="sidebar-overlay" onclick="toggleAdminMenu()"></div>
 
     <div class="admin-main">
         <div class="topbar">
-            <div class="topbar-title">Dashboard</div>
-            <div class="topbar-right">
-                <div class="topbar-admin-info">
-                    <div class="topbar-avatar"><?= strtoupper(substr($_SESSION['user_nama'], 0, 1)) ?></div>
-                    <span class="topbar-name"><?= htmlspecialchars($_SESSION['user_nama']) ?></span>
-                </div>
-            </div>
+    <div class="topbar-left">
+        <button class="menu-admin" onclick="toggleAdminMenu()">☰</button>
+        <div class="topbar-title">Dashboard</div> </div>
+    
+    <div class="topbar-right">
+        <div class="topbar-admin-info">
+            <div class="topbar-avatar"><?= strtoupper(substr($_SESSION['user_nama'], 0, 1)) ?></div>
+            <span class="topbar-name"><?= htmlspecialchars($_SESSION['user_nama']) ?></span>
         </div>
+    </div>
+</div>
 
         <div class="page-content">
             <div class="page-header">
@@ -101,22 +107,18 @@ $bookingTerbaru = $conn->query("
                 </div>
             </div>
 
-            <div class="card" style="margin-bottom:20px;">
-                <div class="card-body" style="padding:20px 24px; display:flex; align-items:center; gap:16px;">
-                    <div style="font-size:32px;">💰</div>
-                    <div>
-                        <div style="color:#888; font-size:13px; margin-bottom:4px;">Total Pendapatan (Confirmed)</div>
-                        <div style="color:#e91e8c; font-size:24px; font-weight:800; font-family:'Montserrat',sans-serif;">
-                            <?= formatRupiah($pendapatan) ?>
-                        </div>
-                    </div>
+            <div class="admin-omzet-card">
+                <div class="admin-omzet-icon">💰</div>
+                <div>
+                    <div class="admin-omzet-title">Total Pendapatan (Confirmed)</div>
+                    <div class="admin-omzet-value"><?= formatRupiah($pendapatan) ?></div>
                 </div>
             </div>
 
             <div class="card">
                 <div class="card-header">
                     <span class="card-header-title">Booking Terbaru</span>
-                    <a href="../../controllers/admin/booking.php" style="color:#e91e8c; font-size:13px;">Lihat Semua →</a>
+                    <a href="../../controllers/admin/booking.php" class="kode-link">Lihat Semua →</a>
                 </div>
                 <div class="table-responsive">
                     <table>
@@ -134,13 +136,13 @@ $bookingTerbaru = $conn->query("
                             <?php if ($bookingTerbaru->num_rows > 0): ?>
                                 <?php while ($b = $bookingTerbaru->fetch_assoc()): ?>
                                 <tr>
-                                    <td style="font-family:monospace; color:#e91e8c; font-size:12px;">
+                                    <td class="kode-link">
                                         <?= htmlspecialchars($b['kode_booking'] ?? '-') ?>
                                     </td>
-                                    <td style="color:#fff;"><?= htmlspecialchars($b['user_nama']) ?></td>
+                                    <td><?= htmlspecialchars($b['user_nama']) ?></td>
                                     <td><?= htmlspecialchars($b['lapangan_nama']) ?></td>
                                     <td><?= date('d M Y', strtotime($b['tanggal'])) ?></td>
-                                    <td style="color:#e91e8c; font-weight:700;"><?= formatRupiah($b['total_harga']) ?></td>
+                                    <td class="resi-total-value"><?= formatRupiah($b['total_harga']) ?></td>
                                     <td>
                                         <?php if ($b['status'] === 'pending'): ?>
                                             <span class="badge badge-pending">Pending</span>
@@ -163,43 +165,43 @@ $bookingTerbaru = $conn->query("
     </div>
 </div>
 
-<div class="modal-overlay" id="modal-logout">
-    <div class="modal" style="max-width:400px;">
-        <div class="modal-header">
-            <span class="modal-title">Konfirmasi Keluar</span>
-            <button class="modal-close" onclick="tutupModal('modal-logout')">✕</button>
-        </div>
-        <div class="modal-body" style="text-align:center; padding:30px 24px;">
-            <div style="font-size:48px; margin-bottom:16px;">⎋</div>
-            <p style="color:#ccc; font-size:15px;">Apakah Anda yakin ingin keluar dari panel admin?</p>
-        </div>
-        <div class="modal-footer" style="justify-content:center; gap:16px;">
-            <button class="btn btn-outline" onclick="tutupModal('modal-logout')">Tidak</button>
-            <a href="../../controllers/logout.php" class="btn btn-pink">Ya, Keluar</a>
+<div class="logout-overlay" id="modal-logout">
+    <div class="logout-box">
+        <div class="logout-icon">⎋</div>
+        <h3>Konfirmasi Keluar</h3>
+        <p>Apakah Anda yakin ingin keluar dari padel admin?</p>
+        <div class="logout-btns">
+            <button class="lbtn-no" onclick="tutupModal('modal-logout')">Tidak</button>
+            <a href="../../controllers/logout.php" class="lbtn-yes">Ya, Keluar</a>
         </div>
     </div>
 </div>
 
 <script>
+function toggleAdminMenu() {
+    document.body.classList.toggle('admin-menu-open');
+}
+
 function bukaModal(id) {
     document.getElementById(id).classList.add('active');
     document.body.style.overflow = 'hidden';
 }
+
 function tutupModal(id) {
     document.getElementById(id).classList.remove('active');
     document.body.style.overflow = '';
 }
+
 function tampilModalLogout(e) {
     e.preventDefault();
     bukaModal('modal-logout');
 }
+
 document.addEventListener('click', function(e) {
-    if (e.target.classList.contains('modal-overlay')) {
-        e.target.classList.remove('active');
-        document.body.style.overflow = '';
+    if (e.target.classList.contains('logout-overlay')) {
+        tutupModal('modal-logout');
     }
 });
 </script>
-<script src="../../assets/js/admin.js"></script>
 </body>
 </html>

@@ -58,10 +58,11 @@ $bookings = $stmtBook->get_result();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kelola Booking - Admin PadelPlay</title>
-    <link rel="stylesheet" href="../../assets/css/admin.css">
-    <link rel="stylesheet" href="../../assets/css/additions.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
 </head>
 <body>
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleAdminMenu()"></div>
+
 <div class="admin-wrapper">
 
     <aside class="sidebar">
@@ -69,7 +70,7 @@ $bookings = $stmtBook->get_result();
             <div class="sidebar-brand-icon">P</div>
             <span class="sidebar-brand-text">Padel<span>Play</span></span>
         </a>
-        <span class="sidebar-badge">Admin Panel</span>
+        <span class="sidebar-badge">Admin Padel</span>
         <ul class="sidebar-menu">
             <li class="sidebar-menu-label">Menu</li>
             <li><a href="../../views/admin/dashboard.php">Dashboard</a></li>
@@ -86,7 +87,10 @@ $bookings = $stmtBook->get_result();
 
     <div class="admin-main">
         <div class="topbar">
-            <div class="topbar-title">Kelola Booking</div>
+            <div class="topbar-left">
+                <button class="menu-admin" onclick="toggleAdminMenu()">☰</button>
+                <div class="topbar-title">Kelola Booking</div>
+            </div>
             <div class="topbar-right">
                 <div class="topbar-admin-info">
                     <div class="topbar-avatar"><?= strtoupper(substr($_SESSION['user_nama'], 0, 1)) ?></div>
@@ -110,10 +114,10 @@ $bookings = $stmtBook->get_result();
                 <div class="alert alert-error">⚠️ <?= htmlspecialchars($error) ?></div>
             <?php endif; ?>
 
-            <div class="card" style="margin-bottom:20px;">
-                <div class="card-body" style="padding:16px 22px;">
-                    <form method="GET" style="display:flex; gap:14px; align-items:flex-end; flex-wrap:wrap;">
-                        <div class="form-group" style="margin-bottom:0; flex:1; min-width:160px;">
+            <div class="card card-filter-area">
+                <div class="card-body card-body-filter">
+                    <form method="GET" class="form-filter-flex">
+                        <div class="form-group form-group-filter">
                             <label class="form-label">Filter Status</label>
                             <select name="filter_status" class="form-control">
                                 <option value="">Semua Status</option>
@@ -122,12 +126,12 @@ $bookings = $stmtBook->get_result();
                                 <option value="cancelled"  <?= $filterStatus === 'cancelled'  ? 'selected' : '' ?>>Dibatalkan</option>
                             </select>
                         </div>
-                        <div class="form-group" style="margin-bottom:0; flex:1; min-width:160px;">
+                        <div class="form-group form-group-filter">
                             <label class="form-label">Filter Tanggal</label>
                             <input type="date" name="filter_tanggal" class="form-control" value="<?= htmlspecialchars($filterTanggal) ?>">
                         </div>
-                        <button type="submit" class="btn btn-pink" style="height:42px;">Filter</button>
-                        <a href="booking.php" class="btn btn-outline" style="height:42px;">Reset</a>
+                        <button type="submit" class="btn btn-pink btn-filter-action">Filter</button>
+                        <a href="booking.php" class="btn btn-outline btn-filter-action">Reset</a>
                     </form>
                 </div>
             </div>
@@ -135,14 +139,14 @@ $bookings = $stmtBook->get_result();
             <div class="card">
                 <div class="card-header">
                     <span class="card-header-title">Semua Booking</span>
-                    <span style="color:#666;font-size:13px;"><?= $bookings->num_rows ?> data</span>
+                    <span class="badge-count-data"><?= $bookings->num_rows ?> data</span>
                 </div>
                 <div class="table-responsive">
                     <table>
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Kode Booking</th>
+                                <th class="td-kode">Kode Booking</th>
                                 <th>Pengguna</th>
                                 <th>Lapangan</th>
                                 <th>Tanggal</th>
@@ -157,19 +161,19 @@ $bookings = $stmtBook->get_result();
                             <?php if ($bookings->num_rows > 0): $no = 1; ?>
                                 <?php while ($b = $bookings->fetch_assoc()): ?>
                                 <tr>
-                                    <td style="color:#555;"><?= $no++ ?></td>
-                                    <td style="font-family:monospace; color:#e91e8c; font-size:12px;">
+                                    <td class="td-number"><?= $no++ ?></td>
+                                    <td class="td-kode">
                                         <?= htmlspecialchars($b['kode_booking'] ?? '-') ?>
                                     </td>
                                     <td>
-                                        <strong style="color:#fff;"><?= htmlspecialchars($b['user_nama']) ?></strong><br>
-                                        <small style="color:#555;"><?= htmlspecialchars($b['user_email']) ?></small>
+                                        <strong class="td-user-name"><?= htmlspecialchars($b['user_nama']) ?></strong><br>
+                                        <small class="td-user-email"><?= htmlspecialchars($b['user_email']) ?></small>
                                     </td>
                                     <td><?= htmlspecialchars($b['lapangan_nama']) ?></td>
                                     <td><?= date('d M Y', strtotime($b['tanggal'])) ?></td>
                                     <td><?= substr($b['jam_mulai'],0,5) ?> - <?= substr($b['jam_selesai'],0,5) ?></td>
                                     <td><?= $b['durasi'] ?> jam</td>
-                                    <td style="color:#e91e8c; font-weight:700;"><?= formatRupiah($b['total_harga']) ?></td>
+                                    <td class="td-total-price"><?= formatRupiah($b['total_harga']) ?></td>
                                     <td>
                                         <?php if ($b['status'] === 'pending'): ?>
                                             <span class="badge badge-pending">Pending</span>
@@ -195,7 +199,7 @@ $bookings = $stmtBook->get_result();
                                                 Batalkan
                                             </button>
                                         <?php else: ?>
-                                            <span style="color:#444;">-</span>
+                                            <span class="td-empty-action">-</span>
                                         <?php endif; ?>
                                     </td>
                                 </tr>
@@ -210,18 +214,19 @@ $bookings = $stmtBook->get_result();
         </div>
     </div>
 </div>
+
 <div class="modal-overlay" id="modal-konfirmasi-status">
-    <div class="modal" style="max-width:420px;">
+    <div class="modal modal-box-admin-medium">
         <div class="modal-header">
             <span class="modal-title" id="konfirmasi-status-judul">Konfirmasi Aksi</span>
             <button class="modal-close" onclick="tutupModal('modal-konfirmasi-status')">✕</button>
         </div>
-        <div class="modal-body" style="text-align:center; padding:30px 24px;">
-            <div id="konfirmasi-status-icon" style="font-size:48px; margin-bottom:16px;">❓</div>
-            <p id="konfirmasi-status-pesan" style="color:#ccc; font-size:15px; margin-bottom:6px;"></p>
-            <p id="konfirmasi-status-lapangan" style="color:#fff; font-weight:700; font-size:16px;"></p>
+        <div class="modal-body modal-body-admin-center">
+            <div id="konfirmasi-status-icon" class="modal-large-icon">❓</div>
+            <p id="konfirmasi-status-pesan" class="modal-text-desc"></p>
+            <p id="konfirmasi-status-lapangan" class="modal-text-highlight"></p>
         </div>
-        <div class="modal-footer" style="justify-content:center; gap:16px;">
+        <div class="modal-footer modal-footer-admin-center">
             <button class="btn btn-outline" onclick="tutupModal('modal-konfirmasi-status')">Tidak</button>
             <a href="#" id="konfirmasi-status-url" class="btn btn-pink">Ya, Lanjutkan</a>
         </div>
@@ -229,16 +234,16 @@ $bookings = $stmtBook->get_result();
 </div>
 
 <div class="modal-overlay" id="modal-logout">
-    <div class="modal" style="max-width:400px;">
+    <div class="modal modal-box-admin-small">
         <div class="modal-header">
             <span class="modal-title">Konfirmasi Keluar</span>
             <button class="modal-close" onclick="tutupModal('modal-logout')">✕</button>
         </div>
-        <div class="modal-body" style="text-align:center; padding:30px 24px;">
-            <div style="font-size:48px; margin-bottom:16px;">⎋</div>
-            <p style="color:#ccc; font-size:15px;">Apakah Anda yakin ingin keluar dari panel admin?</p>
+        <div class="modal-body modal-body-admin-center">
+            <div class="modal-large-icon">⎋</div>
+            <p class="modal-text-desc-simple">Apakah Anda yakin ingin keluar dari padel admin?</p>
         </div>
-        <div class="modal-footer" style="justify-content:center; gap:16px;">
+        <div class="modal-footer modal-footer-admin-center">
             <button class="btn btn-outline" onclick="tutupModal('modal-logout')">Tidak</button>
             <a href="../logout.php" class="btn btn-pink">Ya, Keluar</a>
         </div>
@@ -246,6 +251,10 @@ $bookings = $stmtBook->get_result();
 </div>
 
 <script>
+function toggleAdminMenu() {
+    document.body.classList.toggle('admin-menu-open');
+}
+
 function bukaModal(id) {
     document.getElementById(id).classList.add('active');
     document.body.style.overflow = 'hidden';

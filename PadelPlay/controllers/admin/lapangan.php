@@ -127,45 +127,17 @@ $lapanganList = $conn->query("SELECT * FROM lapangan ORDER BY nama ASC");
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kelola Lapangan - Admin PadelPlay</title>
-    <link rel="stylesheet" href="../../assets/css/admin.css">
-    <link rel="stylesheet" href="../../assets/css/additions.css">
-    <style>
-        .foto-thumb {
-            width: 60px; height: 45px; object-fit: cover;
-            border-radius: 6px; border: 1px solid #2a2a2a;
-        }
-        .foto-preview-wrap { margin-top: 10px; display: none; }
-        .foto-preview-wrap img {
-            max-width: 100%; max-height: 160px;
-            border-radius: 8px; border: 1px solid #333;
-        }
-        .upload-area {
-            border: 2px dashed #333; border-radius: 10px;
-            padding: 16px; text-align: center;
-            cursor: pointer; transition: border-color .2s;
-        }
-        .upload-area:hover { border-color: #e91e8c; }
-        .upload-area input[type=file] { display: none; }
-        .upload-area label {
-            cursor: pointer; color: #888; font-size: 13px;
-        }
-        .upload-area label span { color: #e91e8c; }
-        .foto-saat-ini {
-            width: 80px; height: 60px; object-fit: cover;
-            border-radius: 8px; border: 1px solid #2a2a2a;
-            margin-bottom: 8px; display: block;
-        }
-    </style>
+    <link rel="stylesheet" href="../../assets/css/style.css">
 </head>
 <body>
 <div class="admin-wrapper">
 
-    <aside class="sidebar">
+    <aside class="sidebar" id="adminSidebar">
         <a href="../../views/admin/dashboard.php" class="sidebar-brand">
             <div class="sidebar-brand-icon">P</div>
             <span class="sidebar-brand-text">Padel<span>Play</span></span>
         </a>
-        <span class="sidebar-badge">Admin Panel</span>
+        <span class="sidebar-badge">Admin Padel</span>
         <ul class="sidebar-menu">
             <li class="sidebar-menu-label">Menu</li>
             <li><a href="../../views/admin/dashboard.php">Dashboard</a></li>
@@ -182,7 +154,10 @@ $lapanganList = $conn->query("SELECT * FROM lapangan ORDER BY nama ASC");
 
     <div class="admin-main">
         <div class="topbar">
-            <div class="topbar-title">Kelola Lapangan</div>
+            <div style="display: flex; align-items: center;">
+                <button class="menu-admin" id="adminMenuBtn">☰</button>
+                <div class="topbar-title">Kelola Lapangan</div>
+            </div>
             <div class="topbar-right">
                 <div class="topbar-admin-info">
                     <div class="topbar-avatar"><?= strtoupper(substr($_SESSION['user_nama'], 0, 1)) ?></div>
@@ -210,7 +185,7 @@ $lapanganList = $conn->query("SELECT * FROM lapangan ORDER BY nama ASC");
             <div class="card">
                 <div class="card-header">
                     <span class="card-header-title">Data Lapangan</span>
-                    <span style="color:#666;font-size:13px;"><?= $lapanganList->num_rows ?> lapangan</span>
+                    <span class="badge-count-data"><?= $lapanganList->num_rows ?> lapangan</span>
                 </div>
                 <div class="table-responsive">
                     <table>
@@ -229,7 +204,7 @@ $lapanganList = $conn->query("SELECT * FROM lapangan ORDER BY nama ASC");
                             <?php if ($lapanganList->num_rows > 0): $no = 1; ?>
                                 <?php while ($l = $lapanganList->fetch_assoc()): ?>
                                 <tr>
-                                    <td style="color:#555;"><?= $no++ ?></td>
+                                    <td class="td-number"><?= $no++ ?></td>
                                     <td>
                                         <?php
                                         $fotoSrc = !empty($l['foto'])
@@ -239,11 +214,11 @@ $lapanganList = $conn->query("SELECT * FROM lapangan ORDER BY nama ASC");
                                         <img src="<?= $fotoSrc ?>" alt="<?= htmlspecialchars($l['nama']) ?>" class="foto-thumb">
                                     </td>
                                     <td>
-                                        <strong style="color:#fff;"><?= htmlspecialchars($l['nama'] ?? '') ?></strong><br>
-                                        <small style="color:#555;"><?= htmlspecialchars(substr($l['deskripsi'] ?? '', 0, 50)) ?>...</small>
+                                        <strong class="td-field-title"><?= htmlspecialchars($l['nama'] ?? '') ?></strong><br>
+                                        <small class="td-field-desc"><?= htmlspecialchars(substr($l['deskripsi'] ?? '', 0, 50)) ?>...</small>
                                     </td>
                                     <td><?= htmlspecialchars($l['lokasi'] ?? '') ?></td>
-                                    <td style="color:#e91e8c; font-weight:700;"><?= formatRupiah($l['harga'] ?? 0) ?></td>
+                                    <td class="td-field-price"><?= formatRupiah($l['harga'] ?? 0) ?></td>
                                     <td>
                                         <span class="badge badge-<?= $l['status'] ?>"><?= ucfirst($l['status'] ?? '') ?></span>
                                     </td>
@@ -265,7 +240,7 @@ $lapanganList = $conn->query("SELECT * FROM lapangan ORDER BY nama ASC");
 </div>
 
 <div class="modal-overlay" id="modal-tambah">
-    <div class="modal">
+    <div class="modal modal-box-admin-medium">
         <div class="modal-header">
             <span class="modal-title">Tambah Lapangan Baru</span>
             <button class="modal-close" onclick="tutupModal('modal-tambah')">✕</button>
@@ -299,14 +274,14 @@ $lapanganList = $conn->query("SELECT * FROM lapangan ORDER BY nama ASC");
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="form-label">Foto Lapangan <small style="color:#666;">(jpg/jpeg/png, maks 3MB)</small></label>
+                    <label class="form-label">Foto Lapangan <small class="form-label-note">(jpg/jpeg/png, maks 3MB)</small></label>
                     <div class="upload-area" onclick="document.getElementById('foto-tambah').click()">
-                        <input type="file" name="foto" id="foto-tambah" accept=".jpg,.jpeg,.png"
-                               onchange="previewFoto(this, 'preview-tambah')">
+                        <input type="file" name="foto" id="foto-tambah" accept=".jpg,.jpeg,.png" onchange="previewFoto(this, 'preview-img-tambah')">
                         <label>📷 Klik untuk pilih gambar (<span>jpg, jpeg, png</span>)</label>
                     </div>
-                    <div class="foto-preview-wrap" id="preview-tambah">
-                        <img src="" alt="Preview">
+                    <div id="preview-tambah" class="admin-preview-container">
+                        <p class="preview-title">Pratinjau Gambar Baru:</p>
+                        <img id="preview-img-tambah" src="" alt="Preview" class="admin-preview-image">
                     </div>
                 </div>
             </div>
@@ -319,7 +294,7 @@ $lapanganList = $conn->query("SELECT * FROM lapangan ORDER BY nama ASC");
 </div>
 
 <div class="modal-overlay" id="modal-edit-lapangan">
-    <div class="modal">
+    <div class="modal modal-box-admin-medium">
         <div class="modal-header">
             <span class="modal-title">Edit Lapangan</span>
             <button class="modal-close" onclick="tutupModal('modal-edit-lapangan')">✕</button>
@@ -354,18 +329,17 @@ $lapanganList = $conn->query("SELECT * FROM lapangan ORDER BY nama ASC");
                         </select>
                     </div>
                 </div>
-
                 <div class="form-group">
                     <label class="form-label">Foto Saat Ini</label>
                     <img id="edit_foto_preview_lama" src="" alt="Foto lapangan" class="foto-saat-ini">
-                    <label class="form-label" style="margin-top:8px;">Ganti Foto <small style="color:#666;">(opsional, jpg/jpeg/png, maks 3MB)</small></label>
+                    <label class="form-label form-label-spacing">Ganti Foto <small class="form-label-note">(opsional, jpg/jpeg/png, maks 3MB)</small></label>
                     <div class="upload-area" onclick="document.getElementById('foto-edit').click()">
-                        <input type="file" name="foto" id="foto-edit" accept=".jpg,.jpeg,.png"
-                               onchange="previewFoto(this, 'preview-edit')">
-                        <label>📷 Klik untuk ganti gambar (<span>jpg, jpeg, png</span>)</label>
+                        <input type="file" name="foto" id="foto-edit" accept=".jpg,.jpeg,.png" onchange="previewFoto(this, 'preview-img-edit')">
+                        <label>📷 Klik untuk pilih gambar baru (<span>jpg, jpeg, png</span>)</label>
                     </div>
-                    <div class="foto-preview-wrap" id="preview-edit">
-                        <img src="" alt="Preview baru">
+                    <div id="preview-edit" class="admin-preview-container">
+                        <p class="preview-title">Pratinjau Gambar Baru:</p>
+                        <img id="preview-img-edit" src="" alt="Preview Baru" class="admin-preview-image">
                     </div>
                 </div>
             </div>
@@ -378,35 +352,34 @@ $lapanganList = $conn->query("SELECT * FROM lapangan ORDER BY nama ASC");
 </div>
 
 <div class="modal-overlay" id="modal-hapus-lapangan">
-    <div class="modal" style="max-width:420px;">
+    <div class="modal modal-box-admin-medium">
         <div class="modal-header">
-            <span class="modal-title" style="color:#e91e8c;">⚠️ Konfirmasi Hapus</span>
+            <span class="modal-title">Konfirmasi Hapus</span>
             <button class="modal-close" onclick="tutupModal('modal-hapus-lapangan')">✕</button>
         </div>
-        <div class="modal-body" style="text-align:center; padding:30px 24px;">
-            <div style="font-size:48px; margin-bottom:16px;">🗑️</div>
-            <p style="color:#ccc; font-size:15px; margin-bottom:6px;">Yakin ingin menghapus lapangan:</p>
-            <p style="color:#fff; font-weight:700; font-size:17px; margin-bottom:16px;" id="hapus-nama-lapangan">-</p>
-            <p style="color:#888; font-size:13px;">Data yang dihapus tidak bisa dikembalikan.<br>Pastikan lapangan tidak punya booking aktif.</p>
+        <div class="modal-body modal-body-admin-center">
+            <div class="modal-large-icon">⚠️</div>
+            <p>Apakah Anda yakin ingin menghapus lapangan <strong id="hapus-nama-lapangan" class="highlight-pink"></strong>?</p>
+            <p class="modal-text-desc-simple">Data yang dihapus tidak dapat dikembalikan.</p>
         </div>
-        <div class="modal-footer" style="justify-content:center; gap:16px;">
-            <button class="btn btn-outline" onclick="tutupModal('modal-hapus-lapangan')">Tidak</button>
+        <div class="modal-footer modal-footer-admin-center">
+            <button type="button" class="btn btn-outline" onclick="tutupModal('modal-hapus-lapangan')">Batal</button>
             <a href="#" id="hapus-url-lapangan" class="btn btn-danger">Ya, Hapus</a>
         </div>
     </div>
 </div>
 
 <div class="modal-overlay" id="modal-logout">
-    <div class="modal" style="max-width:400px;">
+    <div class="modal modal-box-admin-small">
         <div class="modal-header">
             <span class="modal-title">Konfirmasi Keluar</span>
             <button class="modal-close" onclick="tutupModal('modal-logout')">✕</button>
         </div>
-        <div class="modal-body" style="text-align:center; padding:30px 24px;">
-            <div style="font-size:48px; margin-bottom:16px;">⎋</div>
-            <p style="color:#ccc; font-size:15px;">Apakah Anda yakin ingin keluar dari panel admin?</p>
+        <div class="modal-body modal-body-admin-center">
+            <div class="modal-large-icon">⎋</div>
+            <p class="modal-text-desc-simple">Apakah Anda yakin ingin keluar dari padel admin?</p>
         </div>
-        <div class="modal-footer" style="justify-content:center; gap:16px;">
+        <div class="modal-footer modal-footer-admin-center">
             <button class="btn btn-outline" onclick="tutupModal('modal-logout')">Tidak</button>
             <a href="../logout.php" class="btn btn-pink">Ya, Keluar</a>
         </div>
@@ -414,39 +387,53 @@ $lapanganList = $conn->query("SELECT * FROM lapangan ORDER BY nama ASC");
 </div>
 
 <script>
-
 function bukaModal(id) {
-    document.getElementById(id).classList.add('active');
-    document.body.style.overflow = 'hidden';
+    const modal = document.getElementById(id);
+    if (modal) {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    } else {
+        console.error('Modal dengan ID "' + id + '" tidak ditemukan.');
+    }
 }
+
 function tutupModal(id) {
-    document.getElementById(id).classList.remove('active');
-    document.body.style.overflow = '';
+    const modal = document.getElementById(id);
+    if (modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
 }
+
 document.addEventListener('click', function(e) {
     if (e.target.classList.contains('modal-overlay')) {
         e.target.classList.remove('active');
         document.body.style.overflow = '';
     }
 });
+
 function tampilModalLogout(e) {
     e.preventDefault();
     bukaModal('modal-logout');
 }
 
-function previewFoto(input, previewId) {
-    const wrap = document.getElementById(previewId);
-    const img  = wrap.querySelector('img');
+function previewFoto(input, targetImgId) {
+    const img = document.getElementById(targetImgId);
+    const wrap = img.parentElement;
+    
     if (input.files && input.files[0]) {
         const reader = new FileReader();
         reader.onload = function(e) {
             img.src = e.target.result;
-            wrap.style.display = 'block';
+            wrap.classList.add('show');
         };
         reader.readAsDataURL(input.files[0]);
     }
 }
+
 function editLapangan(data) {
+    console.log("Menyiapkan form edit untuk:", data.nama);
+
     document.getElementById('edit_id').value        = data.id;
     document.getElementById('edit_nama').value      = data.nama;
     document.getElementById('edit_lokasi').value    = data.lokasi;
@@ -455,14 +442,15 @@ function editLapangan(data) {
     document.getElementById('edit_status').value    = data.status;
     document.getElementById('edit_foto_lama').value = data.foto || '';
 
-    const fotoSrc = data.foto
-        ? '../../assets/images/' + data.foto
+    const fotoSrc = data.foto 
+        ? '../../assets/images/' + data.foto 
         : '../../assets/images/Padel.jpeg';
     document.getElementById('edit_foto_preview_lama').src = fotoSrc;
 
+    document.getElementById('foto-edit').value = '';
     const previewEdit = document.getElementById('preview-edit');
-    previewEdit.style.display = 'none';
-    previewEdit.querySelector('img').src = '';
+    previewEdit.classList.remove('show');
+    document.getElementById('preview-img-edit').src = '';
 
     bukaModal('modal-edit-lapangan');
 }
@@ -474,12 +462,20 @@ function modalHapusLapangan(url, nama) {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
+
+    const adminMenuBtn = document.getElementById('adminMenuBtn');
+    if (adminMenuBtn) {
+        adminMenuBtn.addEventListener('click', function() {
+            document.body.classList.toggle('admin-menu-open');
+        });
+    }
+
     document.querySelectorAll('.alert').forEach(function(alert) {
         setTimeout(function() {
-            alert.style.transition = 'opacity .5s';
+            alert.style.transition = 'opacity 0.5s ease';
             alert.style.opacity    = '0';
             setTimeout(function() { alert.remove(); }, 500);
-        }, 4500);
+        }, 4000);
     });
 });
 </script>

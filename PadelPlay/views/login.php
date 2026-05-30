@@ -2,9 +2,9 @@
 session_start();
 if (isset($_SESSION['user_id'])) {
     if ($_SESSION['role'] === 'admin') {
-        header("Location: admin/dasboard.php");
+        header("Location: /PadelPlay/views/admin/dashboard.php"); 
     } else {
-        header("Location: user/index.php");
+        header("Location: /PadelPlay/views/user/index.php");      
     }
     exit;
 }
@@ -16,8 +16,7 @@ $error = $_GET['error'] ?? '';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Masuk - PadelPlay</title>
-    <link rel="stylesheet" href="../assets/css/user.css">
-    <link rel="stylesheet" href="../../assets/css/additions.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body>
 <div class="auth-wrapper">
@@ -43,14 +42,14 @@ $error = $_GET['error'] ?? '';
                 <label class="form-label">Password</label>
                 <input type="password" name="password" class="form-control" placeholder="••••••••" required>
             </div>
-            <button type="submit" class="btn-pink" style="width:100%; justify-content:center;">Masuk</button>
+            <button type="submit">Masuk</button>
         </form>
 
         <div class="auth-footer">
-            Belum punya akun? <a href="../controllers/user/register.php">Daftar</a>
+            Belum punya akun? <a href="/PadelPlay/controllers/user/register.php">Daftar</a>
         </div>
     </div>
 </div>
-<script src="../assets/js/user.js"></script>
+<script src="../assets/js/user.js?v=1.1"></script>
 </body>
 </html>
